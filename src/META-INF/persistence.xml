@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+  <persistence-unit name="pintureriaPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>Entidades.Almacen</class>
+    <class>Entidades.Cliente</class>
+    <class>Entidades.Compras</class>
+    <class>Entidades.Control</class>
+    <class>Entidades.Cuenta_Cliente</class>
+    <class>Entidades.Cuenta_Proveedor</class>
+    <class>Entidades.Datos_Contado</class>
+    <class>Entidades.Datos_Cuenta_Corriente</class>
+    <class>Entidades.Datos_Tarjeta</class>
+    <class>Entidades.Datos_cheque</class>
+    <class>Entidades.Detalle_Compra</class>
+    <class>Entidades.Detalle_Cuenta_Cliente</class>
+    <class>Entidades.Detalle_Cuenta_Proveedor</class>
+    <class>Entidades.Detalle_Devolucion</class>
+    <class>Entidades.Detalle_Factura</class>
+    <class>Entidades.Detalle_Remito</class>
+    <class>Entidades.Detalle_Venta</class>
+    <class>Entidades.Detalle_tipo_venta</class>
+    <class>Entidades.Devolucion</class>
+    <class>Entidades.Factura</class>
+    <class>Entidades.Orden_Pago</class>
+    <class>Entidades.PagoCliente</class>
+    <class>Entidades.Precio</class>
+    <class>Entidades.Producto</class>
+    <class>Entidades.Proveedor</class>
+    <class>Entidades.Remito</class>
+    <class>Entidades.Tarjeta</class>
+    <class>Entidades.TipoUnidades</class>
+    <class>Entidades.Tipo_Cliente</class>
+    <class>Entidades.Tipo_Doc</class>
+    <class>Entidades.Tipo_Factura</class>
+    <class>Entidades.Tipo_Pago</class>
+    <class>Entidades.Tipo_Venta</class>
+    <class>Entidades.Usuario</class>
+    <class>Entidades.Venta</class>
+    <class>Entidades.Stocktemp</class>
+    <class>Entidades.Localizacion</class>
+    <class>Entidades.Organizacion</class>
+    <class>Entidades.Contrato</class>
+    <class>Entidades.Responsable_Contrato</class>
+    <class>Entidades.Alumno</class>
+    <class>Entidades.Detalle_Contrato</class>
+    <class>Entidades.cuenta_contrato</class>
+    <class>Entidades.detalle_cuenta_contrato</class>
+    <class>Entidades.PersonalizarContrato</class>
+    <class>Entidades.CodigoBarra</class>
+    <class>Entidades.Entrega_Producto_Contrato</class>
+    <class>Entidades.Fiado</class>
+    <class>Entidades.detalleFiado</class>
+    <class>Entidades.CuentaFiado</class>
+    <class>Entidades.DetalleCuentaFiado</class>
+    <class>Facade.FacadeFiado</class>
+    <class>Entidades.ComprasinStock</class>
+    <class>Entidades.CuentaProveedorSinStock</class>
+    <class>Entidades.DetalleCuentaProvedorSinStock</class>
+    <class>Entidades.Deposito</class>
+    <class>Entidades.PagoCompraSinStock</class>
+    <class>Entidades.DetalledeComprasinStock</class>
+    <class>Entidades.Vale</class>
+    <class>Entidades.Auditoria</class>
+    <class>Entidades.ProductoCompuesto</class>
+    <class>Entidades.DetalleProdcutoCompuesto</class>
+    <class>Entidades.TicketCocina</class>
+    <class>Entidades.DetalleTicketCocina</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/pintureria"/>
+      <property name="javax.persistence.jdbc.password" value="123"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="eclipselink.ddl-generation" value="create-tables"/>
+    </properties>
+  </persistence-unit>
+</persistence>
