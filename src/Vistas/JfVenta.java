@@ -11,6 +11,7 @@ import Controladores.PagoClienteJpaController;
 import Controladores.VentaJpaController;
 import Controladores.exceptions.NonexistentEntityException;
 import Entidades.Almacen;
+import Entidades.Caja;
 import Entidades.Cliente;
 import Entidades.Cuenta_Cliente;
 import Entidades.Datos_Contado;
@@ -25,9 +26,11 @@ import Entidades.PagoCliente;
 import Entidades.Producto;
 import Entidades.Tarjeta;
 import Entidades.Tipo_Pago;
+import Entidades.Tipo_Pago_;
 import Entidades.Tipo_Venta;
 import Entidades.Venta;
 import Facade.FacadeAlmacen;
+import Facade.FacadeCaja;
 import Facade.FacadeCliente;
 import Facade.FacadeCuentaCliente;
 import Facade.FacadeLocalizacion;
@@ -71,6 +74,7 @@ public class JfVenta extends javax.swing.JFrame {
      Datos_Contado contado=new Datos_Contado();
      static Tipo_Pago tipopago;
      int facturaemitida=0;
+     int validarcajacerrada=0;
     /**
      * Creates new form Venta
      */
@@ -651,6 +655,8 @@ public class JfVenta extends javax.swing.JFrame {
                         fecha.set(año, mes-1, dia);
                         Date fec=(Date)fecha.getTime();
         venta.setFecha(fec);
+        Date hora=new Date();
+        venta.setHora(hora);
         venta.setCliente(cliente);
         venta.setMonto(Float.parseFloat(jTextField7.getText()));
         venta.setAnulacion("NO");
@@ -945,6 +951,9 @@ public class JfVenta extends javax.swing.JFrame {
         }
         }
         if(Menu.opcion==2){
+            validarenCaja();
+            if(validarcajacerrada==0){
+                       
             if(venta.getPagoRegistrado().equals("SI")){
             try {
                 EntityManagerFactory emf=Persistence.createEntityManagerFactory("pintureriaPU");
@@ -985,6 +994,7 @@ public class JfVenta extends javax.swing.JFrame {
             }
          } else{JOptionPane.showMessageDialog(rootPane, "La venta no puede ser anulada por q su pago ya fue Registrado");
             }
+            }else{JOptionPane.showMessageDialog(rootPane, "No se puede Anular la Venta por que la caja ya fue cerrada");}
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -1251,7 +1261,7 @@ public class JfVenta extends javax.swing.JFrame {
     //jComboBox2.setEnabled(false);
     cargarTablaProducto();
     inicializarTabla2();
-    BuscarVenta ventana=new BuscarVenta(this, true);
+        BuscarVentaAnular ventana=new BuscarVentaAnular(this, true);
     ventana.setVisible(true);
     venta=ventana.venta;
     CargarDatos();
@@ -1311,7 +1321,7 @@ public class JfVenta extends javax.swing.JFrame {
     inicializarTabla2();
     //BuscarVentaGenerica ventana=new BuscarVentaGenerica(this, true);
     //ventana.setVisible(true);
-    venta=Caja.venta;
+    venta=JfCaja.venta;
     CargarDatos();
      }
      if(JLogin.usu.getTipo().equals("ADMINISTRADOR")){
@@ -1614,6 +1624,17 @@ public class JfVenta extends javax.swing.JFrame {
     jTextField8.setEnabled(false);
     jTextField10.setEnabled(false);
     jTextField11.setEnabled(false);
+    }
+    
+    public void validarenCaja(){
+    EntityManagerFactory emf=Persistence.createEntityManagerFactory("pintureriaPU");
+    Date horaventa=venta.getHora();
+    List<Caja> listacaja=new FacadeCaja().buscarxCajaxhora(horaventa);
+    if(listacaja.size()==0){
+    validarcajacerrada=1;
+    }else{
+    validarcajacerrada=0;
+    }
     }
 }
 

@@ -9,6 +9,8 @@ package Vistas;
 import Controladores.ClienteJpaController;
 import Controladores.Cuenta_ClienteJpaController;
 import Controladores.LocalizacionJpaController;
+import Controladores.MesaJpaController;
+import Controladores.MozoJpaController;
 import Controladores.ProveedorJpaController;
 import Controladores.TipoUnidadesJpaController;
 import Controladores.Tipo_ClienteJpaController;
@@ -18,6 +20,8 @@ import Entidades.Almacen;
 import Entidades.Cliente;
 import Entidades.Cuenta_Cliente;
 import Entidades.Localizacion;
+import Entidades.Mesa;
+import Entidades.Mozo;
 import Entidades.Proveedor;
 import Entidades.TipoUnidades;
 import Entidades.Tipo_Cliente;
@@ -275,6 +279,32 @@ private void inicializarComponentes() {
         ProveedorJpaController pjc=new ProveedorJpaController(emf);
         pjc.create(pro);
         
+        Mozo mozo=new Mozo();
+        mozo.setApellido("GENERAL");
+        mozo.setNombre("");
+        mozo.setDni("0");
+        mozo.setDomicilio("");
+        mozo.setTelefono("0");
+        MozoJpaController mjc=new MozoJpaController(emf);
+        mjc.create(mozo);
+        
+        Mesa mesa=new Mesa();
+        mesa.setCerrado(1);
+        mesa.setDescripcion("GENERAL");
+        mesa.setNumero(0);
+        MesaJpaController mejc=new MesaJpaController(emf);
+        mejc.create(mesa);
+        
+            String nombre="NEGOCIO";
+            boolean valida=new FacadeLocalizacion().validarLocalizacion(nombre);
+            if(!valida){
+            //EntityManagerFactory emf=Persistence.createEntityManagerFactory("pintureriaPU");
+            Localizacion localizacion=new Localizacion();
+            localizacion.setDescripcion(nombre);
+            localizacion.setCantidad(0);
+                LocalizacionJpaController ljc=new LocalizacionJpaController(emf);
+                ljc.create(localizacion);
+            }
     }
 
     private void CargarLocalizacion() {

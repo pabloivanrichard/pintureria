@@ -131,5 +131,17 @@ public class FacadeCompra {
         quAfiliado.setParameter("a", "NO");
         return quAfiliado.getResultList();          
 }
+         
+        public List<Compras> buscarxFechayhora(Date fecha,Date horainicio,Date horafin){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("pintureriaPU");
+        EntityManager em = emf.createEntityManager();
+        Query quAfiliado = em.createQuery("SELECT v FROM Compras v WHERE v.fecha >=:fec AND v.hora >=:horainicio AND v.hora <=:horafin AND v.anulacion =:a");
+       // Query quAfiliado = em.createQuery("SELECT a FROM Afiliado a WHERE a.id LIKE:diag");
+        quAfiliado.setParameter("fec", fecha);
+        quAfiliado.setParameter("horainicio", horainicio);
+        quAfiliado.setParameter("horafin", horafin);
+        quAfiliado.setParameter("a", "NO");
+        return quAfiliado.getResultList();          
+}
     
 }

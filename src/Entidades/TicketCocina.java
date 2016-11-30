@@ -32,6 +32,8 @@ public class TicketCocina implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     Date fecha;
     Hour hora;
+    @Temporal(javax.persistence.TemporalType.TIME)
+    Date horaa;
     @OneToMany(cascade = CascadeType.ALL)
     List<DetalleTicketCocina> dt;
 
@@ -65,6 +67,14 @@ public class TicketCocina implements Serializable {
 
     public void setDt(List<DetalleTicketCocina> dt) {
         this.dt = dt;
+    }
+
+    public Date getHoraa() {
+        return horaa;
+    }
+
+    public void setHoraa(Date horaa) {
+        this.horaa = horaa;
     }
 
    

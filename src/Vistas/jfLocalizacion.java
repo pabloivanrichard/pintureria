@@ -148,7 +148,7 @@ public class jfLocalizacion extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if(!jTextField1.getText().equals("") || !jTextField1.getText().equals("GENERAL")){
+        if(!jTextField1.getText().equals("") ){  //|| !jTextField1.getText().equals("GENERAL")
             boolean valida=new FacadeLocalizacion().validarLocalizacion(jTextField1.getText());
             if(!valida){
             EntityManagerFactory emf=Persistence.createEntityManagerFactory("pintureriaPU");
@@ -159,7 +159,7 @@ public class jfLocalizacion extends javax.swing.JFrame {
                 ljc.create(localizacion);
                 ActualizarTabla();
             }
-        }
+        }else{JOptionPane.showMessageDialog(rootPane, "Debe ingresar una localizacion");}
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

@@ -672,6 +672,7 @@ public class jfStock extends javax.swing.JFrame {
     modelo.addColumn("Talle");
     modelo.addColumn("Proveedor");
     modelo.addColumn("Cantidades Disponibles");
+    modelo.addColumn("Unidad");
     modelo.addColumn("precio real");
     modelo.addColumn("precio contado");
     for(int i=0; i<listap.size(); i++){
@@ -682,6 +683,7 @@ public class jfStock extends javax.swing.JFrame {
     vector.add(listap.get(i).getProducto().getTalle());
     vector.add(listap.get(i).getProducto().getProveedor().getNombre());
     vector.add(listap.get(i).getCantidad());
+    vector.add(listap.get(i).getProducto().getUnidad().getDescripcion());
     vector.add(listap.get(i).getProducto().getPrecio().getPrecio_real());
     vector.add(listap.get(i).getProducto().getPrecio().getPrecio_contado());    
     modelo.addRow(vector);
@@ -711,6 +713,7 @@ public class jfStock extends javax.swing.JFrame {
     modelo.addColumn("Talle");
     modelo.addColumn("Proveedor");
     modelo.addColumn("Cantidad");
+    modelo.addColumn("Unidad");
     modelo.addColumn("precio real");
     modelo.addColumn("precio contado");
     for(int i=0; i<listap.size(); i++){
@@ -721,6 +724,7 @@ public class jfStock extends javax.swing.JFrame {
     vector.add(listap.get(i).getProducto().getTalle());
     vector.add(listap.get(i).getProducto().getProveedor().getNombre());
     vector.add(listap.get(i).getCantidad());
+    vector.add(listap.get(i).getProducto().getUnidad().getDescripcion());
     vector.add(listap.get(i).getProducto().getPrecio().getPrecio_real());
     vector.add(listap.get(i).getProducto().getPrecio().getPrecio_contado());    
     modelo.addRow(vector);
@@ -739,6 +743,7 @@ public class jfStock extends javax.swing.JFrame {
     modelo.addColumn("Talle");
     modelo.addColumn("Proveedor");
     modelo.addColumn("Cantidades Disponibles");
+    modelo.addColumn("Unidad");
     modelo.addColumn("precio real");
     modelo.addColumn("precio contado");
     for(int i=0; i<listap.size(); i++){
@@ -749,6 +754,7 @@ public class jfStock extends javax.swing.JFrame {
     vector.add(listap.get(i).getProducto().getTalle());
     vector.add(listap.get(i).getProducto().getProveedor().getNombre());
     vector.add(listap.get(i).getCantidad());
+    vector.add(listap.get(i).getProducto().getUnidad().getDescripcion());
     vector.add(listap.get(i).getProducto().getPrecio().getPrecio_real());
     vector.add(listap.get(i).getProducto().getPrecio().getPrecio_contado());    
     modelo.addRow(vector);
@@ -776,6 +782,7 @@ public class jfStock extends javax.swing.JFrame {
     modelo.addColumn("Talle");
     modelo.addColumn("Proveedor");
     modelo.addColumn("Cantidades Disponibles");
+    modelo.addColumn("Unidad");
     modelo.addColumn("precio real");
     modelo.addColumn("precio contado");
     for(int i=0; i<lista.size(); i++){
@@ -786,6 +793,7 @@ public class jfStock extends javax.swing.JFrame {
     vector.add(listap.get(i).getProducto().getTalle());
     vector.add(lista.get(i).getProducto().getProveedor().getNombre());
     vector.add(listap.get(i).getCantidad());
+    vector.add(listap.get(i).getProducto().getUnidad().getDescripcion());
     vector.add(lista.get(i).getProducto().getPrecio().getPrecio_real());
     vector.add(lista.get(i).getProducto().getPrecio().getPrecio_contado());      
     modelo.addRow(vector);

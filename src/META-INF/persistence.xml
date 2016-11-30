@@ -66,6 +66,12 @@
     <class>Entidades.DetalleProdcutoCompuesto</class>
     <class>Entidades.TicketCocina</class>
     <class>Entidades.DetalleTicketCocina</class>
+    <class>Entidades.Mozo</class>
+    <class>Entidades.Mesa</class>
+    <class>Entidades.ServicioMesa</class>
+    <class>Entidades.DetalleServicioMesa</class>
+    <class>Entidades.Caja</class>
+    <class>Facade.FacadeCaja</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/pintureria"/>
       <property name="javax.persistence.jdbc.password" value="123"/>

@@ -84,9 +84,9 @@ public class JfProveedor extends javax.swing.JFrame {
 
         jLabel3.setText("*CUIT:");
 
-        jLabel4.setText("Tel:");
+        jLabel4.setText("*Tel:");
 
-        jLabel5.setText("Email:");
+        jLabel5.setText("*Email:");
 
         jLabel6.setText("*direccion:");
 
@@ -153,6 +153,12 @@ public class JfProveedor extends javax.swing.JFrame {
         jLabel9.setText("*Tipo de Documento:");
 
         jLabel10.setText("*Nro de Documento:");
+
+        jTextField7.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField7KeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -438,6 +444,15 @@ public class JfProveedor extends javax.swing.JFrame {
      jComboBox1.setSelectedItem(prove.getTipodoc().getDescripcion());
       }
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jTextField7KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField7KeyTyped
+        // TODO add your handling code here:
+           float k = (float) evt.getKeyChar(); 
+      if (k >= 97 && k <= 122 || k >= 65 && k <= 90) { 
+      evt.consume(); 
+      JOptionPane.showMessageDialog(null, "No puede ingresar Letras!!!", "Error Datos", JOptionPane.ERROR_MESSAGE); 
+      }
+    }//GEN-LAST:event_jTextField7KeyTyped
 
     /**
      * @param args the command line arguments

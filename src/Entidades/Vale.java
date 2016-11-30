@@ -28,6 +28,8 @@ public class Vale implements Serializable {
     Float monto;
     @Temporal(javax.persistence.TemporalType.DATE)
     Date fec;
+    @Temporal(javax.persistence.TemporalType.TIME)
+    Date hora;
     String Observacion;
     String estado;
 
@@ -77,6 +79,14 @@ public class Vale implements Serializable {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public Date getHora() {
+        return hora;
+    }
+
+    public void setHora(Date hora) {
+        this.hora = hora;
     }
 
     

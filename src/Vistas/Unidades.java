@@ -172,7 +172,7 @@ public class Unidades extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         if(menu==1){
-            if(jTextField1.getText()!=null){
+            if(!jTextField1.getText().equals("")){
                 EntityManagerFactory emf= Persistence.createEntityManagerFactory("pintureriaPU");
                 TipoUnidades tipouni= new TipoUnidades();
                 tipouni.setDescripcion(jTextField1.getText().toUpperCase());
@@ -185,7 +185,8 @@ public class Unidades extends javax.swing.JDialog {
             }
         }
         if(menu==2){
-            if(jTextField1.getText()!=null){
+            if(tipou!=null){
+                        if(!jTextField1.getText().equals("")){
                 try {                
                     EntityManagerFactory emf= Persistence.createEntityManagerFactory("pintureriaPU");
                     TipoUnidades tipocl=tipou ;
@@ -203,8 +204,13 @@ public class Unidades extends javax.swing.JDialog {
             }else{
                 JOptionPane.showMessageDialog(rootPane, "Debe llenar los campos");
             }
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Debe Seleccinar un regitro");
+            }
+
         }
         if(menu==3){
+            if(tipou!=null){
             try {
                 EntityManagerFactory emf= Persistence.createEntityManagerFactory("pintureriaPU");
                 TipoUnidades tipocl=tipou ;
@@ -216,6 +222,10 @@ public class Unidades extends javax.swing.JDialog {
             } catch (NonexistentEntityException ex) {
                 Logger.getLogger(JftipoCliente.class.getName()).log(Level.SEVERE, null, ex);
             }
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Debe Seleccinar un regitro");
+            }
+            
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

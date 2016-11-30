@@ -20,7 +20,7 @@ super();
 @Override
 public void paintComponent(Graphics g) {
 Dimension tam = getSize();
-ImageIcon imagen = new ImageIcon(getClass().getResource("/imagenes/serviciotecnico.jpg"));
+ImageIcon imagen = new ImageIcon(getClass().getResource("/imagenes/koko.jpg"));
 g.drawImage(imagen.getImage(), 0, 0, tam.width, tam.height, null);
 setOpaque(false);
 super.paintComponent(g);

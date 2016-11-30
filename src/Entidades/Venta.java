@@ -30,6 +30,8 @@ public class Venta implements Serializable {
     private Long id;
     @Temporal(javax.persistence.TemporalType.DATE)
     Date fecha;
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    Date hora;
     String descripcion;
     float monto;
     String anulacion;
@@ -43,6 +45,8 @@ public class Venta implements Serializable {
     @OneToOne
     Usuario usu;
     int porcentaje_descuento;
+    String mozo;
+    long idservicio;
     
     public Usuario getUsu() {
         return usu;
@@ -141,8 +145,30 @@ public class Venta implements Serializable {
     public void setPorcentaje_descuento(int porcentaje_descuento) {
         this.porcentaje_descuento = porcentaje_descuento;
     }
+    public String getMozo() {
+        return mozo;
+    }
 
-    
+    public void setMozo(String mozo) {
+        this.mozo = mozo;
+    }
+
+    public long getIdservicio() {
+        return idservicio;
+    }
+
+    public void setIdservicio(long idservicio) {
+        this.idservicio = idservicio;
+    }
+
+    public Date getHora() {
+        return hora;
+    }
+
+    public void setHora(Date hora) {
+        this.hora = hora;
+    }
+
     
     @Override
     public int hashCode() {

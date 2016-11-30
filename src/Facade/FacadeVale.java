@@ -49,5 +49,14 @@ public class FacadeVale {
         quAfiliado.setParameter("fec1", fec1);
         return quAfiliado.getResultList();          
       }
+        public List<Vale> BuscarxFechayHora(Date fec, Date fec1){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("pintureriaPU");
+        EntityManager em = emf.createEntityManager();
+        Query quAfiliado = em.createQuery("SELECT v FROM Vale v WHERE v.hora BETWEEN :fec AND :fec1");
+       // Query quAfiliado = em.createQuery("SELECT a FROM Afiliado a WHERE a.id LIKE:diag");
+        quAfiliado.setParameter("fec", fec);
+        quAfiliado.setParameter("fec1", fec1);
+        return quAfiliado.getResultList();          
+      }
     
 }

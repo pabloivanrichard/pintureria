@@ -28,6 +28,7 @@ public class ProductoCompuesto implements Serializable {
     private Long id;
     String descripcion;
     float precio;
+    String codigo;
     @OneToMany (cascade = CascadeType.ALL)
     List<DetalleProdcutoCompuesto> detalle;
     
@@ -61,6 +62,14 @@ public class ProductoCompuesto implements Serializable {
 
     public void setDetalle(List<DetalleProdcutoCompuesto> detalle) {
         this.detalle = detalle;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
     
 

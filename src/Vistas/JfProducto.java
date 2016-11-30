@@ -58,6 +58,7 @@ public class JfProducto extends javax.swing.JFrame {
         initComponents();
          setLocationRelativeTo(null);
         inicializarComponentes();
+        deshabilitarpizzeria();
     }
 
     /**
@@ -198,7 +199,19 @@ public class JfProducto extends javax.swing.JFrame {
 
         jLabel4.setText("*Precio Compra: $");
 
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField1KeyTyped(evt);
+            }
+        });
+
         jLabel5.setText("*Precio Venta: $");
+
+        jTextField2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField2KeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -237,7 +250,22 @@ public class JfProducto extends javax.swing.JFrame {
 
         jLabel9.setText("*Cantidad:");
 
+        jTextField4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField4KeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField4KeyTyped(evt);
+            }
+        });
+
         jLabel10.setText("*Alerta:");
+
+        jTextField5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField5KeyTyped(evt);
+            }
+        });
 
         jLabel11.setText("*Localizacion:");
 
@@ -267,12 +295,12 @@ public class JfProducto extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)
+                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(73, 73, 73)
+                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)
                         .addComponent(jButton4)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -616,6 +644,47 @@ public class JfProducto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
+        // TODO add your handling code here:
+           float k = (float) evt.getKeyChar(); 
+      if (k >= 97 && k <= 122 || k >= 65 && k <= 90) { 
+      evt.consume(); 
+      JOptionPane.showMessageDialog(null, "No puede ingresar Letras!!!", "Error Datos", JOptionPane.ERROR_MESSAGE); 
+      }
+    }//GEN-LAST:event_jTextField1KeyTyped
+
+    private void jTextField2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField2KeyTyped
+        // TODO add your handling code here:
+           float k = (float) evt.getKeyChar(); 
+      if (k >= 97 && k <= 122 || k >= 65 && k <= 90) { 
+      evt.consume(); 
+      JOptionPane.showMessageDialog(null, "No puede ingresar Letras!!!", "Error Datos", JOptionPane.ERROR_MESSAGE); 
+      }
+    }//GEN-LAST:event_jTextField2KeyTyped
+
+    private void jTextField4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField4KeyPressed
+
+    private void jTextField4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyTyped
+        // TODO add your handling code here:
+           float k = (float) evt.getKeyChar(); 
+      if (k >= 97 && k <= 122 || k >= 65 && k <= 90) { 
+      evt.consume(); 
+      JOptionPane.showMessageDialog(null, "No puede ingresar Letras!!!", "Error Datos", JOptionPane.ERROR_MESSAGE); 
+      }
+    }//GEN-LAST:event_jTextField4KeyTyped
+
+    private void jTextField5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyTyped
+        // TODO add your handling code here:
+           float k = (float) evt.getKeyChar();
+           char c =  evt.getKeyChar();
+      if (k >= 97 && k <= 122 || k >= 65 && k <= 90) { 
+      evt.consume(); 
+      JOptionPane.showMessageDialog(null, "No puede ingresar Letras!!!", "Error Datos", JOptionPane.ERROR_MESSAGE); 
+      }
+    }//GEN-LAST:event_jTextField5KeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -689,6 +758,7 @@ public class JfProducto extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void inicializarComponentes() {
+        
      cargarCombos();
      llenarComboLocalizacion();
      codigoministerial=0;
@@ -898,4 +968,9 @@ public class JfProducto extends javax.swing.JFrame {
             Logger.getLogger(JfProducto.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+  public void deshabilitarpizzeria(){
+  jLabel6.setVisible(false);
+  jTextField6.setVisible(false);
+  jCheckBox1.setVisible(false);
+  }
 }

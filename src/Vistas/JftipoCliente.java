@@ -153,7 +153,7 @@ public class JftipoCliente extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
        if(menu==1){ 
-         if(jTextField1.getText()!=null){
+         if(!jTextField1.getText().equals("")){
          EntityManagerFactory emf= Persistence.createEntityManagerFactory("pintureriaPU");
          Tipo_Cliente tipoc= new Tipo_Cliente();
          tipoc.setDescripcion(jTextField1.getText().toUpperCase());
@@ -167,7 +167,9 @@ public class JftipoCliente extends javax.swing.JFrame {
         }
      }
        if(menu==2){
-       if(jTextField1.getText()!=null){
+       if(tipoc!=null){
+           
+       if(!jTextField1.getText().equals("")){
            try {
                EntityManagerFactory emf= Persistence.createEntityManagerFactory("pintureriaPU");
                Tipo_Cliente tipocl=tipoc ;
@@ -184,8 +186,11 @@ public class JftipoCliente extends javax.swing.JFrame {
         }else{
          JOptionPane.showMessageDialog(rootPane, "Debe llenar los campos");
         }
+       
+       }else{JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un registro");}    
        }
        if(menu==3){
+           if(tipoc!=null){
            try {
                EntityManagerFactory emf= Persistence.createEntityManagerFactory("pintureriaPU");
                Tipo_Cliente tipocl=tipoc ;
@@ -197,6 +202,8 @@ public class JftipoCliente extends javax.swing.JFrame {
            } catch (NonexistentEntityException ex) {
                Logger.getLogger(JftipoCliente.class.getName()).log(Level.SEVERE, null, ex);
            }
+           }
+           
      }
     }//GEN-LAST:event_jButton1ActionPerformed
 

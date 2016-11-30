@@ -12,16 +12,19 @@ import Controladores.DetalleTicketCocinaJpaController;
 import Controladores.LocalizacionJpaController;
 import Controladores.PagoClienteJpaController;
 import Controladores.ProductoCompuestoJpaController;
+import Controladores.ServicioMesaJpaController;
 import Controladores.TicketCocinaJpaController;
 import Controladores.VentaJpaController;
 import Controladores.exceptions.NonexistentEntityException;
 import Entidades.Almacen;
+import Entidades.Caja;
 import Entidades.Cliente;
 import Entidades.Cuenta_Cliente;
 import Entidades.Datos_Contado;
 import Entidades.Datos_Cuenta_Corriente;
 import Entidades.Datos_Tarjeta;
 import Entidades.Datos_cheque;
+import Entidades.DetalleServicioMesa;
 import Entidades.DetalleTicketCocina;
 import Entidades.Detalle_Cuenta_Cliente;
 import Entidades.Detalle_Venta;
@@ -30,11 +33,13 @@ import Entidades.Localizacion;
 import Entidades.PagoCliente;
 import Entidades.Producto;
 import Entidades.ProductoCompuesto;
+import Entidades.ServicioMesa;
 import Entidades.TicketCocina;
 import Entidades.Tipo_Pago;
 import Entidades.Tipo_Venta;
 import Entidades.Venta;
 import Facade.FacadeAlmacen;
+import Facade.FacadeCaja;
 import Facade.FacadeCliente;
 import Facade.FacadeCuentaCliente;
 import Facade.FacadeLocalizacion;
@@ -43,6 +48,7 @@ import Facade.FacadeProductoCombinado;
 import Reportes.Reporte;
 import static Vistas.JfVenta.tipopago;
 import static Vistas.JfVenta.venta;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -52,6 +58,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JRException;
@@ -77,6 +84,9 @@ Venta ventag=new Venta();
 List<DetalleTicketCocina> ldc=new ArrayList<>();
 Long idTicketCocina;
 float cantidadmaxima=0;
+ Almacen productoAlmacen;
+ int escompuesto=0;
+ List<DetalleServicioMesa>listadetalleservicio;
 /**
      * Creates new form jfVentaProductoCompuesto
      */
@@ -106,6 +116,7 @@ float cantidadmaxima=0;
         jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jCheckBox1 = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -114,6 +125,12 @@ float cantidadmaxima=0;
         jTextField3 = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        jComboBox2 = new javax.swing.JComboBox();
+        jLabel12 = new javax.swing.JLabel();
+        jTextField7 = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jTextField8 = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -184,12 +201,16 @@ float cantidadmaxima=0;
         });
         jScrollPane1.setViewportView(jTable1);
 
+        jCheckBox1.setText(org.openide.util.NbBundle.getMessage(jfVentaProductoCompuesto.class, "jfVentaProductoCompuesto.jCheckBox1.text")); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jCheckBox1)
+                .addGap(26, 26, 26)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -217,7 +238,8 @@ float cantidadmaxima=0;
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(jCheckBox1))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -251,6 +273,11 @@ float cantidadmaxima=0;
         jLabel5.setText(org.openide.util.NbBundle.getMessage(jfVentaProductoCompuesto.class, "jfVentaProductoCompuesto.jLabel5.text")); // NOI18N
 
         jTextField3.setText(org.openide.util.NbBundle.getMessage(jfVentaProductoCompuesto.class, "jfVentaProductoCompuesto.jTextField3.text")); // NOI18N
+        jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField3KeyTyped(evt);
+            }
+        });
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/add.png"))); // NOI18N
         jButton3.setText(org.openide.util.NbBundle.getMessage(jfVentaProductoCompuesto.class, "jfVentaProductoCompuesto.jButton3.text")); // NOI18N
@@ -268,6 +295,16 @@ float cantidadmaxima=0;
             }
         });
 
+        jLabel11.setText(org.openide.util.NbBundle.getMessage(jfVentaProductoCompuesto.class, "jfVentaProductoCompuesto.jLabel11.text")); // NOI18N
+
+        jLabel12.setText(org.openide.util.NbBundle.getMessage(jfVentaProductoCompuesto.class, "jfVentaProductoCompuesto.jLabel12.text")); // NOI18N
+
+        jTextField7.setText(org.openide.util.NbBundle.getMessage(jfVentaProductoCompuesto.class, "jfVentaProductoCompuesto.jTextField7.text")); // NOI18N
+
+        jLabel13.setText(org.openide.util.NbBundle.getMessage(jfVentaProductoCompuesto.class, "jfVentaProductoCompuesto.jLabel13.text")); // NOI18N
+
+        jTextField8.setText(org.openide.util.NbBundle.getMessage(jfVentaProductoCompuesto.class, "jfVentaProductoCompuesto.jTextField8.text")); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -278,18 +315,31 @@ float cantidadmaxima=0;
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jScrollPane2)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(56, 56, 56)
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addGap(368, 368, 368)
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(13, 13, 13))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(368, 368, 368)
-                .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -300,7 +350,13 @@ float cantidadmaxima=0;
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12)
+                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13)
+                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
@@ -393,6 +449,11 @@ float cantidadmaxima=0;
         jLabel10.setText(org.openide.util.NbBundle.getMessage(jfVentaProductoCompuesto.class, "jfVentaProductoCompuesto.jLabel10.text")); // NOI18N
 
         jTextField6.setText(org.openide.util.NbBundle.getMessage(jfVentaProductoCompuesto.class, "jfVentaProductoCompuesto.jTextField6.text")); // NOI18N
+        jTextField6.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField6KeyTyped(evt);
+            }
+        });
 
         jButton8.setText(org.openide.util.NbBundle.getMessage(jfVentaProductoCompuesto.class, "jfVentaProductoCompuesto.jButton8.text")); // NOI18N
         jButton8.addActionListener(new java.awt.event.ActionListener() {
@@ -514,6 +575,7 @@ float cantidadmaxima=0;
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        if(escompuesto==1){
         if(prodcomp!=null && !jTextField3.getText().equals("")){
          verificarContenido();
          if(listadescripcion.size()==0 && listadescripcion1.size()==0){
@@ -526,7 +588,7 @@ float cantidadmaxima=0;
          vector.add(jTextField3.getText());
          float resultado=(prodcomp.getPrecio()) * (Float.parseFloat(jTextField3.getText()));
          vector.add(resultado);
-         //vector.add(jTextField6.getText());
+         vector.add("SI");
          //vector.add(jComboBox2.getSelectedItem().toString());
          modelo2.addRow(vector);
          jTable3.setModel(modelo2);
@@ -558,14 +620,55 @@ float cantidadmaxima=0;
          
         }else{ JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un Producto Y especificar las cantidades");
         }
+        
+        }
+        if(escompuesto==0){
+       if(productoAlmacen!=null && !jTextField6.getText().equals("")){ 
+       float unidadesDisponibles=Float.parseFloat(productoAlmacen.getCantidad());
+       float unidadesRequeridas=Float.parseFloat(jTextField3.getText());
+       
+       //Pone las unidades en el area en caso de no haber echo click en el jcombo
+        List<Localizacion> lista=new FacadeLocalizacion().buscarxdes(jComboBox2.getSelectedItem().toString(),String.valueOf(productoAlmacen.getId()));
+        if(lista.size()!=0){
+        Localizacion loc=lista.get(0);
+        jTextField7.setText(String.valueOf(loc.getCantidad()));
+        }
+       float unidaesenArea=Float.parseFloat(jTextField7.getText());
+        if(unidadesRequeridas <= unidadesDisponibles){
+         if(unidadesRequeridas<=unidaesenArea){   
+       Vector vector=new Vector();
+       vector.add(productoAlmacen.getId());
+       vector.add(productoAlmacen.getProducto().getDescripcion());
+       //vector.add(productoAlmacen.getProducto().getTalle());
+       vector.add(jComboBox2.getSelectedItem().toString());
+       vector.add(productoAlmacen.getProducto().getPrecio().getPrecio_contado());
+       vector.add(jTextField3.getText());
+       float total=productoAlmacen.getProducto().getPrecio().getPrecio_contado()*Float.parseFloat(jTextField3.getText());
+       vector.add(total);
+       vector.add("NO");
+       modelo2.addRow(vector);
+       jTable3.setModel(modelo2);
+       limpiarCampos();
+       calcularTotal();
+        }else{JOptionPane.showMessageDialog(rootPane, "Las unidades Requiridas son mayores a las disponible en esa Area");}
+        }
+        else{
+            JOptionPane.showMessageDialog(rootPane, "Las unidades disponibles no cubren la demanda");
+        }
+         } else {JOptionPane.showMessageDialog(rootPane, "Debe seleccionar un producto y especificar la cantidad a vender");
+       }
+        }
+        
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         if(!jTextField1.getText().equals("")){
         buscarxProducto();
+        inicializarTablaComposicion();
         }else{
         inicializarTablaProductoCombinado();
+        inicializarTablaComposicion();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -573,20 +676,45 @@ float cantidadmaxima=0;
         // TODO add your handling code here:
         if(!jTextField2.getText().equals("")){
         buscarxCodigo();
+        inicializarTablaComposicion();
         }
         else{
         inicializarTablaProductoCombinado();
+        inicializarTablaComposicion();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
-        if(jTable1.getSelectedRow()!=-1){
+       if(jTable1.getSelectedRow()!=-1){
+       if(jTable1.getValueAt(jTable1.getSelectedRow(),4).toString().equals("SI")){
        EntityManagerFactory emf = Persistence.createEntityManagerFactory("pintureriaPU");  
        String valorTabla=(jTable1.getValueAt(jTable1.getSelectedRow(),0)).toString();
        Long valor=Long.parseLong(valorTabla);
        prodcomp=new ProductoCompuestoJpaController(emf).findProductoCompuesto(valor);
        llenarComposicion();
+       escompuesto=1;
+         jTextField7.setText("");
+         jTextField8.setText("");
+         jComboBox2.setEnabled(false);
+       } 
+       if(jTable1.getValueAt(jTable1.getSelectedRow(),4).toString().equals("NO")){
+       EntityManagerFactory emf = Persistence.createEntityManagerFactory("pintureriaPU");  
+       String valorTabla=(jTable1.getValueAt(jTable1.getSelectedRow(),0)).toString();
+       Long valor=Long.parseLong(valorTabla);
+      productoAlmacen=new AlmacenJpaController(emf).findAlmacen(valor);
+      inicializarTablaComposicion();
+      escompuesto=0;
+        llenarComboLocalizacion();
+      //Pone las unidades en el area en caso de no haber echo click en el jcombo
+        List<Localizacion> lista=new FacadeLocalizacion().buscarxdes(jComboBox2.getSelectedItem().toString(),String.valueOf(productoAlmacen.getId()));
+        if(lista.size()!=0){
+        Localizacion loc=lista.get(0);
+        jTextField7.setText(String.valueOf(loc.getCantidad()));
+        jTextField8.setText(String.valueOf(productoAlmacen.getCantidad()));
+        }
+      } 
+       
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
@@ -606,12 +734,14 @@ float cantidadmaxima=0;
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        if(Menu.opcion==1){
-          if(cliente!=null){    
+        if(Menu.opcion==1){   
+        if(cliente!=null){    
        //  if(jComboBox1.getSelectedItem().equals("TARJETA")){    
         EntityManagerFactory emf=Persistence.createEntityManagerFactory("pintureriaPU");
         Venta venta=new Venta();
         venta.setFecha(jXDatePicker1.getDate());
+        Date hor=new Date();
+        venta.setHora(hor);
         venta.setCliente(cliente);
         venta.setMonto(Float.parseFloat(jTextField4.getText()));
         venta.setAnulacion("NO");
@@ -623,15 +753,21 @@ float cantidadmaxima=0;
         /// cargar detalle de Venta
         ArrayList<Detalle_Venta> ldv = new ArrayList<Detalle_Venta>();
         for(int i=0; i< jTable3.getRowCount(); i++ ){
-        Detalle_Venta dv=new Detalle_Venta();    
+        Detalle_Venta dv=new Detalle_Venta();
+        if(jTable3.getValueAt(i, 6).toString().equals("SI")){
         List<ProductoCompuesto> lp=new FacadeProductoCombinado().buscarxCod(Long.parseLong(jTable3.getValueAt(i, 0).toString()));
         dv.setProductocompuesto(lp.get(0));
+        }
+        if(jTable3.getValueAt(i, 6).toString().equals("NO")){
+        List<Producto> lp=new FacadeProducto().buscarxnombre(String.valueOf(jTable3.getValueAt(i, 1)).toUpperCase());
+        dv.setProducto(lp.get(0));
+        }
         dv.setCantidad(Integer.parseInt(jTable3.getValueAt(i, 4).toString()));
         dv.setMonto(Float.valueOf(jTable3.getValueAt(i, 3).toString()));
         ldv.add(dv);
         DetalleTicketCocina dtc=new DetalleTicketCocina();
         dtc.setCantidad(jTable3.getValueAt(i, 4).toString());
-        dtc.setProducto(lp.get(0).getDescripcion());
+        dtc.setProducto(jTable3.getValueAt(i, 1).toString());
         ldc.add(dtc);
         }
         venta.setDetalle_venta(ldv);
@@ -695,7 +831,8 @@ float cantidadmaxima=0;
         // Modificar Almacen y los productos en el area
         for(int i=0; i< jTable3.getRowCount(); i++ ){
             try {
-                List<ProductoCompuesto> lp=new FacadeProductoCombinado().buscarxCod(Long.parseLong(jTable3.getValueAt(i, 0).toString()));
+                if(jTable3.getValueAt(i,6).toString().equals("SI")){
+                 List<ProductoCompuesto> lp=new FacadeProductoCombinado().buscarxCod(Long.parseLong(jTable3.getValueAt(i, 0).toString()));
                 ProductoCompuesto p=lp.get(0);
                 for(int j=0; j<p.getDetalle().size(); j++){
                 Almacen almacen= new Almacen();
@@ -703,13 +840,14 @@ float cantidadmaxima=0;
                 List<Almacen> la=new FacadeAlmacen().buscarxid(p.getDetalle().get(j).getProducto().getId());
                 almacen=la.get(0);
                 float cantalmacen=Float.parseFloat(la.get(0).getCantidad());
-                float cantvendida=Float.parseFloat(jTable3.getValueAt(i, 4).toString());
+                float cantvendida=Float.parseFloat(jTable3.getValueAt(i, 4).toString())* p.getDetalle().get(j).getCantidad();
                 almacen.setProducto(la.get(0).getProducto());
                 float cantidadtotal=cantalmacen-cantvendida;
                 if(cantidadtotal<=0){
                 almacen.setCantidad("0");
                 }else{
                 almacen.setCantidad(String.valueOf(cantalmacen-cantvendida));
+                //System.out.println(la.get(0).getProducto()+"-"+String.valueOf(cantalmacen-cantvendida)+"-"+String.valueOf(cantvendida));
                 }                
                 almacen.setAlerta(la.get(0).getAlerta());
                 almacen.setLocalizacion(la.get(0).getLocalizacion());
@@ -728,6 +866,31 @@ float cantidadmaxima=0;
                 ljc.edit(lo);
                 
                 }
+               }
+                
+               if(jTable3.getValueAt(i,6).toString().equals("NO")){
+                Almacen almacen= new Almacen();
+                //List<Almacen> la=new FacadeAlmacen().buscarxnombre(String.valueOf(jTable2.getValueAt(i, 1)).toUpperCase());
+                List<Almacen> la=new FacadeAlmacen().buscarxid(Long.parseLong(jTable3.getValueAt(i, 0).toString()));
+                almacen=la.get(0);
+                float cantalmacen=Float.parseFloat(la.get(0).getCantidad());
+                float cantvendida=Float.parseFloat(jTable3.getValueAt(i, 4).toString());
+                almacen.setProducto(la.get(0).getProducto());
+                almacen.setCantidad(String.valueOf(cantalmacen-cantvendida));
+                almacen.setAlerta(la.get(0).getAlerta());
+                almacen.setLocalizacion(la.get(0).getLocalizacion());
+                AlmacenJpaController ajp=new AlmacenJpaController(emf);
+                ajp.edit(almacen);
+                
+                Localizacion lo= new Localizacion();
+               // List<Localizacion> llo=new FacadeLocalizacion().buscarxdes(jTable2.getValueAt(i, 6).toString());
+                List<Localizacion> llo=new FacadeLocalizacion().buscarxdes(jTable3.getValueAt(i, 2).toString(),jTable3.getValueAt(i, 0).toString());
+                lo=llo.get(0);
+                float cantidadlocal=lo.getCantidad();
+                lo.setCantidad(cantidadlocal-cantvendida);
+                LocalizacionJpaController ljc= new LocalizacionJpaController(emf);
+                ljc.edit(lo);
+               } 
                 
                 
             } catch (NonexistentEntityException ex) {
@@ -914,6 +1077,7 @@ float cantidadmaxima=0;
               tc.setFecha(d);
               tc.setHora(hora);
               tc.setDt(ldc);
+              tc.setHoraa(d);
               TicketCocinaJpaController tjc=new TicketCocinaJpaController(emf);
               tjc.create(tc);
               //Actualico idticket al detalle
@@ -928,6 +1092,18 @@ float cantidadmaxima=0;
             }
               }
               idTicketCocina=tc.getId();
+          //Venta mostrador creo un servicio con la misma hora inicio y final
+            ServicioMesa servicio=new ServicioMesa();
+            llenarDetalleServicio();
+            servicio.setDetalle(listadetalleservicio);
+            Date ahora=new Date();
+            servicio.setFecha(ahora);
+            servicio.setFin(ahora);
+            servicio.setInicio(ahora);
+            servicio.setMesa("0");
+            servicio.setMozo("GENERAL");
+            ServicioMesaJpaController sjc=new ServicioMesaJpaController(emf);
+            sjc.create(servicio);
          // Agrego para cargar la tabla de vuelta actualizada con el stock
         if(!jTextField1.getText().equals("")&&jTextField2.getText().equals("")){
         buscarxProducto();
@@ -1045,6 +1221,24 @@ float cantidadmaxima=0;
         ejecutarReporte();
     }//GEN-LAST:event_jButton11ActionPerformed
 
+    private void jTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyTyped
+        // TODO add your handling code here:
+         float k = (float) evt.getKeyChar(); 
+      if (k >= 97 && k <= 122 || k >= 65 && k <= 90) { 
+      evt.consume(); 
+      JOptionPane.showMessageDialog(null, "No puede ingresar Letras!!!", "Error Datos", JOptionPane.ERROR_MESSAGE); 
+      }
+    }//GEN-LAST:event_jTextField3KeyTyped
+
+    private void jTextField6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField6KeyTyped
+        // TODO add your handling code here:
+      float k = (float) evt.getKeyChar(); 
+      if (k >= 97 && k <= 122 || k >= 65 && k <= 90) { 
+      evt.consume(); 
+      JOptionPane.showMessageDialog(null, "No puede ingresar Letras!!!", "Error Datos", JOptionPane.ERROR_MESSAGE); 
+      }
+    }//GEN-LAST:event_jTextField6KeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -1092,9 +1286,14 @@ float cantidadmaxima=0;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1119,16 +1318,22 @@ float cantidadmaxima=0;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField jTextField8;
     private org.jdesktop.swingx.JXDatePicker jXDatePicker1;
     // End of variables declaration//GEN-END:variables
 
     private void inicializarComponentes() {
+    List<Caja> listacaja=new FacadeCaja().buscarxEstado(0);
+    if(listacaja.size()!=0){
     jXDatePicker1.setEnabled(false);
     jTextField1.setEnabled(true);
     jTextField2.setEnabled(true);
     jTextField3.setEnabled(true);
     jTextField4.setEnabled(false);
     jTextField5.setEnabled(false);
+    jTextField7.setEnabled(false);
+    jTextField8.setEnabled(false);
     jTextField6.setText("0");
     jButton1.setEnabled(true);
     jButton2.setEnabled(true);
@@ -1141,35 +1346,85 @@ float cantidadmaxima=0;
     Date hoy=new Date();
     jXDatePicker1.setDate(hoy);
     jXDatePicker1.setFormats("dd/MM/yyyy");
+    jCheckBox1.setSelected(true);
     inicializarTablaProductoCombinado();
     inicializarTablaComposicion();
     inicializarTabla2();
     llenarClienteGeneral();
+    }else{
+    //this.dispose();
+    JOptionPane.showMessageDialog(rootPane, "No puede Realizar Ventas por no se realizo la Apertura de Caja");
+    jXDatePicker1.setEnabled(false);
+    jTextField1.setEnabled(false);
+    jTextField2.setEnabled(false);
+    jTextField3.setEnabled(false);
+    jTextField4.setEnabled(false);
+    jTextField5.setEnabled(false);
+    jTextField7.setEnabled(false);
+    jTextField8.setEnabled(false);
+    jTextField6.setText("0");
+    jButton1.setEnabled(false);
+    jButton2.setEnabled(false);
+    jButton3.setEnabled(false);
+    jButton4.setEnabled(false);
+    jButton5.setEnabled(false);
+    jButton6.setEnabled(true);
+    jButton10.setEnabled(false);
+    jButton11.setEnabled(false);
+    Date hoy=new Date();
+    jXDatePicker1.setDate(hoy);
+    jXDatePicker1.setFormats("dd/MM/yyyy");
+    jCheckBox1.setSelected(true);
+    inicializarTablaProductoCombinado();
+    inicializarTablaComposicion();
+    inicializarTabla2();
+    llenarClienteGeneral();
+    }    
+    
     }
 
     private void inicializarTablaProductoCombinado() {
     EntityManagerFactory emf= Persistence.createEntityManagerFactory("pintureriaPU");
         List<ProductoCompuesto> listaproducto= new FacadeProductoCombinado().listar();
+        List<Almacen> listap= new FacadeAlmacen().buscarxnombre(jTextField1.getText().toUpperCase());
         DefaultTableModel modeloTabla=new DefaultTableModel();
         modeloTabla.addColumn("Id");
+        modeloTabla.addColumn("Codigo");
         modeloTabla.addColumn("Producto");
         //modeloTabla.addColumn("Talle");
         //modeloTabla.addColumn("Proveedor");
         modeloTabla.addColumn("Precio");
         //modeloTabla.addColumn("Unidades Disponibles");
-       // modeloTabla.addColumn("Localizacion");
+        modeloTabla.addColumn("Compuesto");
         
         
         for(int i=0; i<listaproducto.size(); i++){
         Vector vector=new Vector();
         vector.add(listaproducto.get(i).getId());
+        vector.add(listaproducto.get(i).getCodigo());
         vector.add(listaproducto.get(i).getDescripcion());
        // vector.add(listaproducto.get(i).getProducto().getTalle());
        // vector.add(listaproducto.get(i).getProducto().getProveedor().getNombre());
        // vector.add(listaproducto.get(i).getProducto().getPrecio().getPrecio_contado());
         vector.add(listaproducto.get(i).getPrecio());
+        vector.add("SI");
         //vector.add(listaproducto.get(i).getLocalizacion());
         modeloTabla.addRow(vector);
+        }
+        if(!jCheckBox1.isSelected()){
+        for(int j=0; j<listap.size();j++){
+        Vector vector=new Vector();
+        vector.add(listap.get(j).getId());
+        vector.add(listap.get(j).getProducto().getCod());
+        vector.add(listap.get(j).getProducto().getDescripcion());
+       // vector.add(listaproducto.get(i).getProducto().getTalle());
+       // vector.add(listaproducto.get(i).getProducto().getProveedor().getNombre());
+       // vector.add(listaproducto.get(i).getProducto().getPrecio().getPrecio_contado());
+        vector.add(listap.get(j).getProducto().getPrecio().getPrecio_contado());
+        vector.add("NO");
+        //vector.add(listaproducto.get(i).getLocalizacion());
+        modeloTabla.addRow(vector);
+        }
         }
         jTable1.setModel(modeloTabla); 
     }
@@ -1178,12 +1433,15 @@ float cantidadmaxima=0;
     
     EntityManagerFactory emf= Persistence.createEntityManagerFactory("pintureriaPU");
         List<ProductoCompuesto> listaproducto= new FacadeProductoCombinado().buscarxDescripcion(jTextField1.getText().toUpperCase());
+        List<Almacen> listap= new FacadeAlmacen().buscarxnombre(jTextField1.getText().toUpperCase());       
         DefaultTableModel modeloTabla=new DefaultTableModel();
         modeloTabla.addColumn("Id");
+         modeloTabla.addColumn("Codigo");
         modeloTabla.addColumn("Producto");
         //modeloTabla.addColumn("Talle");
         //modeloTabla.addColumn("Proveedor");
         modeloTabla.addColumn("Precio");
+        modeloTabla.addColumn("Compuesto");
         //modeloTabla.addColumn("Unidades Disponibles");
        // modeloTabla.addColumn("Localizacion");
         
@@ -1191,40 +1449,78 @@ float cantidadmaxima=0;
         for(int i=0; i<listaproducto.size(); i++){
         Vector vector=new Vector();
         vector.add(listaproducto.get(i).getId());
+        vector.add(listaproducto.get(i).getCodigo());
         vector.add(listaproducto.get(i).getDescripcion());
        // vector.add(listaproducto.get(i).getProducto().getTalle());
        // vector.add(listaproducto.get(i).getProducto().getProveedor().getNombre());
        // vector.add(listaproducto.get(i).getProducto().getPrecio().getPrecio_contado());
         vector.add(listaproducto.get(i).getPrecio());
+        vector.add("SI");
         //vector.add(listaproducto.get(i).getLocalizacion());
         modeloTabla.addRow(vector);
         }
+        if(!jCheckBox1.isSelected()){
+         for(int j=0; j<listap.size();j++){
+        Vector vector=new Vector();
+        vector.add(listap.get(j).getId());
+        vector.add(listap.get(j).getProducto().getCod());
+        vector.add(listap.get(j).getProducto().getDescripcion());
+       // vector.add(listaproducto.get(i).getProducto().getTalle());
+       // vector.add(listaproducto.get(i).getProducto().getProveedor().getNombre());
+       // vector.add(listaproducto.get(i).getProducto().getPrecio().getPrecio_contado());
+        vector.add(listap.get(j).getProducto().getPrecio().getPrecio_contado());
+        vector.add("NO");
+        //vector.add(listaproducto.get(i).getLocalizacion());
+        modeloTabla.addRow(vector);
+        } 
+        }
+       
+        
         jTable1.setModel(modeloTabla); 
     }
 
     private void buscarxCodigo() {
     EntityManagerFactory emf= Persistence.createEntityManagerFactory("pintureriaPU");
         List<ProductoCompuesto> listaproducto= new FacadeProductoCombinado().buscarxCod(Long.parseLong(jTextField2.getText()));
+        List<Almacen> listap= new FacadeAlmacen().buscarxnombre(jTextField2.getText().toUpperCase());
         DefaultTableModel modeloTabla=new DefaultTableModel();
         modeloTabla.addColumn("Id");
+        modeloTabla.addColumn("Codigo");
         modeloTabla.addColumn("Producto");
         //modeloTabla.addColumn("Talle");
         //modeloTabla.addColumn("Proveedor");
         modeloTabla.addColumn("Precio");
         //modeloTabla.addColumn("Unidades Disponibles");
-       // modeloTabla.addColumn("Localizacion");
+        modeloTabla.addColumn("Compuesto");
         
         
         for(int i=0; i<listaproducto.size(); i++){
         Vector vector=new Vector();
         vector.add(listaproducto.get(i).getId());
+        vector.add(listaproducto.get(i).getCodigo());
         vector.add(listaproducto.get(i).getDescripcion());
        // vector.add(listaproducto.get(i).getProducto().getTalle());
        // vector.add(listaproducto.get(i).getProducto().getProveedor().getNombre());
        // vector.add(listaproducto.get(i).getProducto().getPrecio().getPrecio_contado());
         vector.add(listaproducto.get(i).getPrecio());
+        vector.add("SI");
         //vector.add(listaproducto.get(i).getLocalizacion());
         modeloTabla.addRow(vector);
+        }
+        if(!jCheckBox1.isSelected()){
+        for(int j=0; j<listap.size();j++){
+        Vector vector=new Vector();
+        vector.add(listap.get(j).getId());
+        vector.add(listap.get(j).getProducto().getCod());
+        vector.add(listap.get(j).getProducto().getDescripcion());
+       // vector.add(listaproducto.get(i).getProducto().getTalle());
+       // vector.add(listaproducto.get(i).getProducto().getProveedor().getNombre());
+       // vector.add(listaproducto.get(i).getProducto().getPrecio().getPrecio_contado());
+        vector.add(listap.get(j).getProducto().getPrecio().getPrecio_contado());
+        vector.add("NO");
+        //vector.add(listaproducto.get(i).getLocalizacion());
+        modeloTabla.addRow(vector);
+        } 
         }
         jTable1.setModel(modeloTabla); 
     
@@ -1250,7 +1546,7 @@ float cantidadmaxima=0;
         vector.add(prodcomp.getDetalle().get(i).getProducto().getUnidad().getDescripcion());
         vector.add(prodcomp.getDetalle().get(i).getExcluyente());
         
-         List<Almacen> prod=new FacadeAlmacen().buscarxid(prodcomp.getDetalle().get(i).getId());
+         List<Almacen> prod=new FacadeAlmacen().buscarxid(prodcomp.getDetalle().get(i).getProducto().getId());
          vector.add(prod.get(0).getCantidad());
          vector.add(prod.get(0).getProducto().getUnidad().getDescripcion());
         //vector.add(prodcomp.getDetalle().get(i).());
@@ -1280,6 +1576,7 @@ public void inicializarTabla2(){
        modelo2.addColumn("Precio");
        modelo2.addColumn("Cantidad");
        modelo2.addColumn("Total");
+       modelo2.addColumn("Es compuesto");
        jTable3.setModel(modelo2);
     }
 
@@ -1364,5 +1661,39 @@ public void inicializarTabla2(){
         Logger.getLogger(JfFactura.class.getName()).log(Level.SEVERE, null, ex);
     }
     }
+
+    private void llenarComboLocalizacion() {
      
+    DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel();
+     List<Localizacion> lista;
+     lista=new FacadeLocalizacion().buscarxAlmance(String.valueOf(productoAlmacen.getId()));
+     if(lista.get(0).getId()!=null){
+     for(int i=0;  i < lista.size(); i++){
+      Vector vector = new Vector();
+      vector.add(lista.get(i).getDescripcion());
+      modeloCombo.addElement(lista.get(i).getDescripcion());
+     }
+     
+     jComboBox2.setModel(modeloCombo);
+     }
+    }
+         private void llenarDetalleServicio() {
+        try {
+            EntityManagerFactory emf=Persistence.createEntityManagerFactory("pintureriaPU");
+            listadetalleservicio=new ArrayList<>();
+            for(int i=0;i<jTable3.getRowCount();i++){
+                DetalleServicioMesa detalle=new DetalleServicioMesa();
+                detalle.setProducto(jTable3.getValueAt(i, 1).toString());
+                detalle.setCantidad(Integer.parseInt(jTable3.getValueAt(i, 4).toString()));
+                detalle.setMonto(Float.parseFloat(jTable3.getValueAt(i, 3).toString()));
+                detalle.setEstado("CERRADO");
+                detalle.setCompuesto(jTable3.getValueAt(i, 6).toString());
+                detalle.setProveedor(jTable3.getValueAt(i, 3).toString());
+                detalle.setIdprodcuto(Long.parseLong(jTable3.getValueAt(i, 0).toString()));
+                listadetalleservicio.add(detalle);
+            }          
+        } catch (Exception ex) {
+            Logger.getLogger(CerrarMesas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

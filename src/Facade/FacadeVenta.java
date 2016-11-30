@@ -150,6 +150,34 @@ public class FacadeVenta {
         return quAfiliado.getResultList();      
     
      }
+         
+         public List<Venta> buscarxFechayMozo(Date fecha, Date fecha1,String mozo){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("pintureriaPU");
+        EntityManager em = emf.createEntityManager();
+        Query quAfiliado = em.createQuery("SELECT v FROM Venta v WHERE v.fecha >=:fec AND  v.fecha<=:fec1 AND v.anulacion =:a AND v.pagoRegistrado=:pr AND v.mozo =:mozo");
+       // Query quAfiliado = em.createQuery("SELECT a FROM Afiliado a WHERE a.id LIKE:diag");
+        quAfiliado.setParameter("fec", fecha);
+        quAfiliado.setParameter("fec1", fecha1);
+        quAfiliado.setParameter("a", "NO");
+        quAfiliado.setParameter("pr", "SI");
+        quAfiliado.setParameter("mozo", mozo);
+        return quAfiliado.getResultList();      
+    
+     }
+         
+         public List<Venta> buscarxFechayHora(Date fecha, Date horainicio,Date horafin){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("pintureriaPU");
+        EntityManager em = emf.createEntityManager();
+        Query quAfiliado = em.createQuery("SELECT v FROM Venta v WHERE v.fecha >=:fec AND  v.hora >=:horainicio AND v.hora <=:horafin AND v.anulacion =:a AND v.pagoRegistrado=:pr");
+       // Query quAfiliado = em.createQuery("SELECT a FROM Afiliado a WHERE a.id LIKE:diag");
+        quAfiliado.setParameter("fec", fecha);
+        quAfiliado.setParameter("horainicio", horainicio);
+        quAfiliado.setParameter("horafin", horafin);
+        quAfiliado.setParameter("a", "NO");
+        quAfiliado.setParameter("pr", "SI");
+        return quAfiliado.getResultList();      
+    
+     }
         
 }
    

@@ -30,6 +30,8 @@ public class Compras implements Serializable {
     private Long id;
     @Temporal(javax.persistence.TemporalType.DATE)
     Date fecha;
+    @Temporal(javax.persistence.TemporalType.TIME)
+    Date hora;  
     float precio_totol;
     @OneToOne
     Proveedor proveedor;  
@@ -102,6 +104,14 @@ public class Compras implements Serializable {
 
     public void setDetalle_Cuenta_Proveedors(List<Detalle_Cuenta_Proveedor> detalle_Cuenta_Proveedors) {
         this.detalle_Cuenta_Proveedors = detalle_Cuenta_Proveedors;
+    }
+
+    public Date getHora() {
+        return hora;
+    }
+
+    public void setHora(Date hora) {
+        this.hora = hora;
     }
 
   

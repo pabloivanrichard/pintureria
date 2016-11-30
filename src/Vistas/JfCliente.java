@@ -87,6 +87,12 @@ public class JfCliente extends javax.swing.JFrame {
 
         jLabel5.setText("*Nro Documento:");
 
+        jTextField3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField3KeyTyped(evt);
+            }
+        });
+
         jLabel6.setText("Telefono:");
 
         jLabel7.setText("Email:");
@@ -315,6 +321,15 @@ public class JfCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextField3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField3KeyTyped
+        // TODO add your handling code here:
+           float k = (float) evt.getKeyChar(); 
+      if (k >= 97 && k <= 122 || k >= 65 && k <= 90) { 
+      evt.consume(); 
+      JOptionPane.showMessageDialog(null, "No puede ingresar Letras!!!", "Error Datos", JOptionPane.ERROR_MESSAGE); 
+      }
+    }//GEN-LAST:event_jTextField3KeyTyped
 
     /**
      * @param args the command line arguments

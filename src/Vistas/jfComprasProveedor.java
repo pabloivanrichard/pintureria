@@ -495,6 +495,8 @@ public class jfComprasProveedor extends javax.swing.JFrame {
                         fecha.set(año, mes-1, dia);
                         Date fec=(Date)fecha.getTime();
         compras.setFecha(fec);
+        Date hora=new Date();
+        compras.setHora(hora);
         compras.setPrecio_totol(Float.parseFloat(jTextField10.getText()));
         compras.setAnulacion("NO");
         compras.setUsu(JLogin.usu);
@@ -969,7 +971,7 @@ public class jfComprasProveedor extends javax.swing.JFrame {
     establecerFecha();
     //BuscarCompraGenerica ventana= new BuscarCompraGenerica(this, true);
     //ventana.setVisible(true);
-    compra=Caja.compra;
+    compra=JfCaja.compra;
     LlenarCamposCompra();
     }
     }
@@ -995,6 +997,7 @@ public class jfComprasProveedor extends javax.swing.JFrame {
     modelo.addColumn("Codigo");
     modelo.addColumn("Producto");
     modelo.addColumn("Proveedor");
+    modelo.addColumn("Unidad");
     modelo.addColumn("precio Compra");
     modelo.addColumn("precio Venta");
     for(int i=0; i<listap.size(); i++){
@@ -1003,6 +1006,7 @@ public class jfComprasProveedor extends javax.swing.JFrame {
     vector.add(listap.get(i).getCod());
     vector.add(listap.get(i).getDescripcion());
     vector.add(listap.get(i).getProveedor().getNombre());
+    vector.add(listap.get(i).getUnidad().getDescripcion());
     vector.add(listap.get(i).getPrecio().getPrecio_real());
     vector.add(listap.get(i).getPrecio().getPrecio_contado());    
     modelo.addRow(vector);
@@ -1019,6 +1023,7 @@ public class jfComprasProveedor extends javax.swing.JFrame {
     modelo.addColumn("Codigo");
     modelo.addColumn("Producto");
     modelo.addColumn("Proveedor");
+    modelo.addColumn("Unidad");
     modelo.addColumn("precio Compra");
     modelo.addColumn("precio Venta");
     for(int i=0; i<listap.size(); i++){
@@ -1027,6 +1032,7 @@ public class jfComprasProveedor extends javax.swing.JFrame {
     vector.add(listap.get(i).getCod());
     vector.add(listap.get(i).getDescripcion());
     vector.add(listap.get(i).getProveedor().getNombre());
+    vector.add(listap.get(i).getUnidad().getDescripcion());
     vector.add(listap.get(i).getPrecio().getPrecio_real());
     vector.add(listap.get(i).getPrecio().getPrecio_contado());    
     modelo.addRow(vector);
@@ -1042,6 +1048,7 @@ public class jfComprasProveedor extends javax.swing.JFrame {
     modelo.addColumn("Codigo");
     modelo.addColumn("Producto");
     modelo.addColumn("Proveedor");
+    modelo.addColumn("Unidad");
     modelo.addColumn("precio Compra");
     modelo.addColumn("precio Venta");
     for(int i=0; i<listap.size(); i++){
@@ -1050,6 +1057,7 @@ public class jfComprasProveedor extends javax.swing.JFrame {
     vector.add(listap.get(i).getCod());
     vector.add(listap.get(i).getDescripcion());
     vector.add(listap.get(i).getProveedor().getNombre());
+    vector.add(listap.get(i).getUnidad().getDescripcion());
     vector.add(listap.get(i).getPrecio().getPrecio_real());
     vector.add(listap.get(i).getPrecio().getPrecio_contado());    
     modelo.addRow(vector);

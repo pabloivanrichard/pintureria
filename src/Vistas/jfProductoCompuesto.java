@@ -59,6 +59,8 @@ ProductoCompuesto prodcomp;
         jTextField1 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jTextField8 = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -104,6 +106,15 @@ ProductoCompuesto prodcomp;
         jLabel11.setText(org.openide.util.NbBundle.getMessage(jfProductoCompuesto.class, "jfProductoCompuesto.jLabel11.text")); // NOI18N
 
         jTextField5.setText(org.openide.util.NbBundle.getMessage(jfProductoCompuesto.class, "jfProductoCompuesto.jTextField5.text")); // NOI18N
+        jTextField5.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField5KeyTyped(evt);
+            }
+        });
+
+        jLabel12.setText(org.openide.util.NbBundle.getMessage(jfProductoCompuesto.class, "jfProductoCompuesto.jLabel12.text")); // NOI18N
+
+        jTextField8.setText(org.openide.util.NbBundle.getMessage(jfProductoCompuesto.class, "jfProductoCompuesto.jTextField8.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -118,6 +129,10 @@ ProductoCompuesto prodcomp;
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -128,7 +143,9 @@ ProductoCompuesto prodcomp;
                     .addComponent(jLabel1)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12)
+                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
@@ -190,6 +207,11 @@ ProductoCompuesto prodcomp;
         jLabel7.setText(org.openide.util.NbBundle.getMessage(jfProductoCompuesto.class, "jfProductoCompuesto.jLabel7.text")); // NOI18N
 
         jTextField6.setText(org.openide.util.NbBundle.getMessage(jfProductoCompuesto.class, "jfProductoCompuesto.jTextField6.text")); // NOI18N
+        jTextField6.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField6KeyTyped(evt);
+            }
+        });
 
         jLabel8.setText(org.openide.util.NbBundle.getMessage(jfProductoCompuesto.class, "jfProductoCompuesto.jLabel8.text")); // NOI18N
 
@@ -250,14 +272,14 @@ ProductoCompuesto prodcomp;
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel6)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextField7))
+                                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGap(235, 235, 235)
                                         .addComponent(jButton3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -569,12 +591,13 @@ ProductoCompuesto prodcomp;
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        if(!jTextField1.getText().equals("") && jTable2.getRowCount() >0){
+        if(!jTextField1.getText().equals("") && jTable2.getRowCount() >0 && !jTextField5.getText().equals("") && !jTextField8.getText().equals("")){
             EntityManagerFactory emf=Persistence.createEntityManagerFactory("pintureriaPU");
             List<DetalleProdcutoCompuesto> listadetalle=new ArrayList<>();
             ProductoCompuesto pc=new ProductoCompuesto();
             pc.setDescripcion(jTextField1.getText().toUpperCase());
             pc.setPrecio(Float.parseFloat(jTextField5.getText()));
+            pc.setCodigo(jTextField8.getText());
             //DetalleProdcutoCompuesto dp=new DetalleProdcutoCompuesto();
             for(int i=0; i <jTable2.getRowCount();i++){
             List<Producto> lp=new FacadeProducto().buscarxId(Long.parseLong(jTable2.getValueAt(i, 0).toString()));
@@ -583,7 +606,7 @@ ProductoCompuesto prodcomp;
             DetalleProdcutoCompuesto dpc=new DetalleProdcutoCompuesto();
             dpc.setProducto(p);
             dpc.setCantidad(cantidad);
-            dpc.setExcluyente(jComboBox1.getSelectedItem().toString());
+            dpc.setExcluyente(jTable2.getValueAt(i, 5).toString());
             listadetalle.add(dpc);
             }
             pc.setDetalle(null);
@@ -591,6 +614,9 @@ ProductoCompuesto prodcomp;
             ProductoCompuestoJpaController pjc=new ProductoCompuestoJpaController(emf);
             pjc.create(pc);
             CargarTablaProductoCompuesto();
+            limpiarCampos2();
+            modelo2=new DefaultTableModel();
+            inicializarTabla2();
             JOptionPane.showMessageDialog(rootPane, "La operacion se realizo con exito");
         }else{JOptionPane.showMessageDialog(rootPane, "Debe completar todos los datos del producto");}
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -631,6 +657,8 @@ ProductoCompuesto prodcomp;
                   ProductoCompuestoJpaController pjc=new ProductoCompuestoJpaController(emf);
                   pjc.edit(pc);
                   CargarTablaProductoCompuesto();
+                  limpiarCampos2();
+                  inicializarTabla2();
                   JOptionPane.showMessageDialog(rootPane, "La operacion se realizo con exito");
               } catch (Exception ex) {
                   Logger.getLogger(jfProductoCompuesto.class.getName()).log(Level.SEVERE, null, ex);
@@ -645,11 +673,30 @@ ProductoCompuesto prodcomp;
                 EntityManagerFactory emf=Persistence.createEntityManagerFactory("pintureriaPU");
                 ProductoCompuestoJpaController pjc=new ProductoCompuestoJpaController(emf);
                 pjc.destroy(prodcomp.getId());
+                limpiarCampos2();
             } catch (NonexistentEntityException ex) {
                 Logger.getLogger(jfProductoCompuesto.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jTextField5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyTyped
+        // TODO add your handling code here:
+      float k = (float) evt.getKeyChar(); 
+      if (k >= 97 && k <= 122 || k >= 65 && k <= 90) { 
+      evt.consume(); 
+      JOptionPane.showMessageDialog(null, "No puede ingresar Letras!!!", "Error Datos", JOptionPane.ERROR_MESSAGE); 
+      }
+    }//GEN-LAST:event_jTextField5KeyTyped
+
+    private void jTextField6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField6KeyTyped
+        // TODO add your handling code here:
+         float k = (float) evt.getKeyChar(); 
+      if (k >= 97 && k <= 122 || k >= 65 && k <= 90) { 
+      evt.consume(); 
+      JOptionPane.showMessageDialog(null, "No puede ingresar Letras!!!", "Error Datos", JOptionPane.ERROR_MESSAGE); 
+      }
+    }//GEN-LAST:event_jTextField6KeyTyped
 
     /**
      * @param args the command line arguments
@@ -699,6 +746,7 @@ ProductoCompuesto prodcomp;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -725,6 +773,7 @@ ProductoCompuesto prodcomp;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField jTextField8;
     // End of variables declaration//GEN-END:variables
 
     private void inicializarComponentes() {
@@ -844,6 +893,7 @@ ProductoCompuesto prodcomp;
         List<ProductoCompuesto> listaproducto= new FacadeProductoCombinado().listar();
         DefaultTableModel modeloTabla=new DefaultTableModel();
         modeloTabla.addColumn("Id");
+        modeloTabla.addColumn("Codigo");
         modeloTabla.addColumn("Producto");
         //modeloTabla.addColumn("Talle");
         //modeloTabla.addColumn("Proveedor");
@@ -855,6 +905,7 @@ ProductoCompuesto prodcomp;
         for(int i=0; i<listaproducto.size(); i++){
         Vector vector=new Vector();
         vector.add(listaproducto.get(i).getId());
+        vector.add(listaproducto.get(i).getCodigo());
         vector.add(listaproducto.get(i).getDescripcion());
        // vector.add(listaproducto.get(i).getProducto().getTalle());
        // vector.add(listaproducto.get(i).getProducto().getProveedor().getNombre());
@@ -892,6 +943,15 @@ ProductoCompuesto prodcomp;
         jTable2.setModel(modelo2);
     
     
+    }
+    
+    public void limpiarCampos2(){
+    jTextField1.setText("");
+    jTextField5.setText("");
+    jTextField2.setText("");
+    jTextField3.setText("");
+    productoAlmacen=null;
+    prodcomp=null;
     }
 
 }

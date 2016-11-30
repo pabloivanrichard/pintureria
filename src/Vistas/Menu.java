@@ -10,6 +10,7 @@ import Facade.FacadeAlmacen;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
@@ -25,11 +26,12 @@ public class Menu extends javax.swing.JFrame {
     public Menu() {
         initComponents();
         setLocationRelativeTo(null);
-        // this.getContentPane().setBackground(Color.white);
-        //JPanel objPanel = new ClaseAdaptada();
-        //objPanel.setSize(this.getWidth(), this.getHeight());
-        //this.add(objPanel);
-        //this.validate();
+        //this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        this.getContentPane().setBackground(Color.white);
+        JPanel objPanel = new ClaseAdaptada();
+        objPanel.setSize(this.getWidth(), this.getHeight());
+        this.add(objPanel);
+        this.validate();
         inicializarComponentes();
     }
 
@@ -69,7 +71,7 @@ public class Menu extends javax.swing.JFrame {
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
-        jMenuItem65 = new javax.swing.JMenuItem();
+        jMenuItem66 = new javax.swing.JMenuItem();
         jMenuItem32 = new javax.swing.JMenuItem();
         jMenuItem33 = new javax.swing.JMenuItem();
         jMenu17 = new javax.swing.JMenu();
@@ -79,10 +81,14 @@ public class Menu extends javax.swing.JFrame {
         jMenuItem36 = new javax.swing.JMenuItem();
         jMenuItem37 = new javax.swing.JMenuItem();
         jMenuItem48 = new javax.swing.JMenuItem();
+        jMenuItem65 = new javax.swing.JMenuItem();
+        jMenuItem68 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem15 = new javax.swing.JMenuItem();
-        jMenuItem16 = new javax.swing.JMenuItem();
         jMenuItem64 = new javax.swing.JMenuItem();
+        jMenuItem69 = new javax.swing.JMenuItem();
+        jMenuItem16 = new javax.swing.JMenuItem();
+        jMenuItem73 = new javax.swing.JMenuItem();
         jMenu9 = new javax.swing.JMenu();
         jMenu10 = new javax.swing.JMenu();
         jMenuItem19 = new javax.swing.JMenuItem();
@@ -93,6 +99,7 @@ public class Menu extends javax.swing.JFrame {
         jMenuItem23 = new javax.swing.JMenuItem();
         jMenuItem24 = new javax.swing.JMenuItem();
         jMenuItem31 = new javax.swing.JMenuItem();
+        jMenuItem67 = new javax.swing.JMenuItem();
         jMenu11 = new javax.swing.JMenu();
         jMenu13 = new javax.swing.JMenu();
         jMenuItem17 = new javax.swing.JMenuItem();
@@ -106,6 +113,9 @@ public class Menu extends javax.swing.JFrame {
         jMenuItem61 = new javax.swing.JMenuItem();
         jMenu14 = new javax.swing.JMenu();
         jMenuItem25 = new javax.swing.JMenuItem();
+        jMenuItem70 = new javax.swing.JMenuItem();
+        jMenuItem71 = new javax.swing.JMenuItem();
+        jMenuItem72 = new javax.swing.JMenuItem();
         jMenu15 = new javax.swing.JMenu();
         jMenuItem26 = new javax.swing.JMenuItem();
         jMenuItem27 = new javax.swing.JMenuItem();
@@ -141,7 +151,7 @@ public class Menu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setForeground(new java.awt.Color(0, 0, 204));
+        jLabel1.setForeground(new java.awt.Color(255, 153, 0));
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel1MouseClicked(evt);
@@ -312,13 +322,13 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu6.add(jMenuItem12);
 
-        jMenuItem65.setText("Elaborar Producto");
-        jMenuItem65.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem66.setText("Agregar Producto Compuesto");
+        jMenuItem66.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem65ActionPerformed(evt);
+                jMenuItem66ActionPerformed(evt);
             }
         });
-        jMenu6.add(jMenuItem65);
+        jMenu6.add(jMenuItem66);
 
         jMenu1.add(jMenu6);
 
@@ -386,6 +396,22 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem48);
 
+        jMenuItem65.setText("Mozos");
+        jMenuItem65.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem65ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem65);
+
+        jMenuItem68.setText("Mesas");
+        jMenuItem68.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem68ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem68);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Venta");
@@ -398,6 +424,22 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem15);
 
+        jMenuItem64.setText("Venta en Mostrador");
+        jMenuItem64.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem64ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem64);
+
+        jMenuItem69.setText("Venta en Mesa");
+        jMenuItem69.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem69ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem69);
+
         jMenuItem16.setText("Anular Venta");
         jMenuItem16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -406,13 +448,13 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem16);
 
-        jMenuItem64.setText("Agregar Venta Compuesta");
-        jMenuItem64.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem73.setText("Consultar Ventas");
+        jMenuItem73.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem64ActionPerformed(evt);
+                jMenuItem73ActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem64);
+        jMenu2.add(jMenuItem73);
 
         jMenuBar1.add(jMenu2);
 
@@ -481,6 +523,14 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         jMenu12.add(jMenuItem31);
+
+        jMenuItem67.setText("Actualizar Precio Stock Compuesto");
+        jMenuItem67.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem67ActionPerformed(evt);
+            }
+        });
+        jMenu12.add(jMenuItem67);
 
         jMenuBar1.add(jMenu12);
 
@@ -558,13 +608,37 @@ public class Menu extends javax.swing.JFrame {
 
         jMenu14.setText("Caja");
 
-        jMenuItem25.setText("Consultar Caja");
+        jMenuItem25.setText("Consultar Ventas en Caja");
         jMenuItem25.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem25ActionPerformed(evt);
             }
         });
         jMenu14.add(jMenuItem25);
+
+        jMenuItem70.setText("Apertura Caja");
+        jMenuItem70.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem70ActionPerformed(evt);
+            }
+        });
+        jMenu14.add(jMenuItem70);
+
+        jMenuItem71.setText("Cerrar Caja");
+        jMenuItem71.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem71ActionPerformed(evt);
+            }
+        });
+        jMenu14.add(jMenuItem71);
+
+        jMenuItem72.setText("Consultar Caja");
+        jMenuItem72.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem72ActionPerformed(evt);
+            }
+        });
+        jMenu14.add(jMenuItem72);
 
         jMenuBar1.add(jMenu14);
 
@@ -985,7 +1059,7 @@ public class Menu extends javax.swing.JFrame {
     private void jMenuItem25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem25ActionPerformed
         // TODO add your handling code here:
         opcion=5;
-        Caja ventana=new Caja();
+        JfCaja ventana=new JfCaja();
         ventana.setVisible(true);
     }//GEN-LAST:event_jMenuItem25ActionPerformed
 
@@ -1250,11 +1324,60 @@ public class Menu extends javax.swing.JFrame {
         ChequearAlmacen();
     }//GEN-LAST:event_jMenuItem64ActionPerformed
 
-    private void jMenuItem65ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem65ActionPerformed
+    private void jMenuItem66ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem66ActionPerformed
         // TODO add your handling code here:
         jfProductoCompuesto ventana=new jfProductoCompuesto();
         ventana.setVisible(true);
+    }//GEN-LAST:event_jMenuItem66ActionPerformed
+
+    private void jMenuItem67ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem67ActionPerformed
+        // TODO add your handling code here:
+        jfPrecioStockCompuesto ventana=new jfPrecioStockCompuesto();
+        ventana.setVisible(true);
+    }//GEN-LAST:event_jMenuItem67ActionPerformed
+
+    private void jMenuItem65ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem65ActionPerformed
+        // TODO add your handling code here:
+        jfMozos ventana=new jfMozos();
+        ventana.setVisible(true);
     }//GEN-LAST:event_jMenuItem65ActionPerformed
+
+    private void jMenuItem68ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem68ActionPerformed
+        // TODO add your handling code here:
+        jfMesas ventana=new jfMesas();
+        ventana.setVisible(true);
+             
+    }//GEN-LAST:event_jMenuItem68ActionPerformed
+
+    private void jMenuItem69ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem69ActionPerformed
+        // TODO add your handling code here:
+        jfServicioMesa ventana=new jfServicioMesa();
+        ventana.setVisible(true);
+    }//GEN-LAST:event_jMenuItem69ActionPerformed
+
+    private void jMenuItem70ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem70ActionPerformed
+        // TODO add your handling code here:
+        AperturaCaja ventana=new AperturaCaja();
+        ventana.setVisible(true);
+    }//GEN-LAST:event_jMenuItem70ActionPerformed
+
+    private void jMenuItem71ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem71ActionPerformed
+        // TODO add your handling code here:
+        CierredeCaja ventana=new CierredeCaja();
+        ventana.setVisible(true);
+    }//GEN-LAST:event_jMenuItem71ActionPerformed
+
+    private void jMenuItem72ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem72ActionPerformed
+        // TODO add your handling code here:
+        ConsultarCajas ventana=new ConsultarCajas();
+        ventana.setVisible(true);
+    }//GEN-LAST:event_jMenuItem72ActionPerformed
+
+    private void jMenuItem73ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem73ActionPerformed
+        // TODO add your handling code here:
+        ConsultarVentasxMozo ventana=new ConsultarVentasxMozo();
+        ventana.setVisible(true);
+    }//GEN-LAST:event_jMenuItem73ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1384,18 +1507,30 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem63;
     private javax.swing.JMenuItem jMenuItem64;
     private javax.swing.JMenuItem jMenuItem65;
+    private javax.swing.JMenuItem jMenuItem66;
+    private javax.swing.JMenuItem jMenuItem67;
+    private javax.swing.JMenuItem jMenuItem68;
+    private javax.swing.JMenuItem jMenuItem69;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem70;
+    private javax.swing.JMenuItem jMenuItem71;
+    private javax.swing.JMenuItem jMenuItem72;
+    private javax.swing.JMenuItem jMenuItem73;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     // End of variables declaration//GEN-END:variables
 
     private void inicializarComponentes() {
-    // DeshabilitarJimmi();   
+    // DeshabilitarJimmi();
+      DeshabilitarPizzeria();
      jLabel1.setEnabled(false);
-    ChequearAlmacen();
+      ChequearAlmacen();
+      
+      
       if(JLogin.usu.getTipo().equals("VENDEDOR")){
      jMenu1.setEnabled(false);
      jMenu2.setEnabled(true);
+     jMenu8.setEnabled(false);
      jMenu9.setEnabled(false);
      jMenu12.setEnabled(true);
      jMenu11.setEnabled(false);
@@ -1410,175 +1545,179 @@ public class Menu extends javax.swing.JFrame {
      jMenuItem31.setEnabled(false);
      jMenuItem24.setEnabled(true);
      jMenuItem25.setEnabled(false);
-     jMenu29.setEnabled(false);
-     }
-        if(JLogin.usu.getTipo().equals("VENDEDOR-TALLER")){
-     jMenu1.setEnabled(false);
-     jMenu2.setEnabled(true);
-     jMenu9.setEnabled(false);
-     jMenu12.setEnabled(true);
-     jMenu11.setEnabled(false);
-     jMenu14.setEnabled(false);
-     jMenu1.setEnabled(false);
-     jMenu15.setEnabled(false);
-     jMenu19.setEnabled(false);
-     jMenu23.setEnabled(false);
-     jMenu25.setEnabled(true);
-     jMenuItem21.setEnabled(false);
-     jMenuItem23.setEnabled(false);
-     jMenuItem31.setEnabled(false);
-     jMenuItem24.setEnabled(true);
-     jMenuItem25.setEnabled(true);
-     jMenu29.setEnabled(false);
-     } 
-     if(JLogin.usu.getTipo().equals("VENDEDOR-CONTRATO")){
-     jMenu1.setEnabled(false);
-     jMenu2.setEnabled(true);
-     jMenu9.setEnabled(false);
-     jMenu12.setEnabled(true);
-     jMenu11.setEnabled(false);
-     jMenu14.setEnabled(false);
-     jMenu1.setEnabled(false);
-     jMenu15.setEnabled(false);
-     jMenuItem21.setEnabled(false);
-     jMenuItem23.setEnabled(false);
-     jMenuItem31.setEnabled(false);
-     jMenuItem24.setEnabled(true);
-     jMenuItem25.setEnabled(false);
-     
-     jMenu1.setEnabled(true);
-     jMenu3.setEnabled(false);
-     jMenu4.setEnabled(false);
-     jMenu5.setEnabled(false);
-     jMenu16.setEnabled(false);
-     jMenu7.setEnabled(false);
-     jMenu8.setEnabled(false);
-     jMenu6.setEnabled(false);
-     jMenu17.setEnabled(false);
-     jMenu18.setEnabled(true);
-     jMenuItem32.setEnabled(false);
      jMenuItem33.setEnabled(false);
+     jMenu18.setEnabled(false);
      jMenuItem48.setEnabled(false);
-     jMenu19.setEnabled(true); 
-     jMenu23.setEnabled(false);
-     jMenu25.setEnabled(false);
-     jMenu29.setEnabled(false);
-     }
-     if(JLogin.usu.getTipo().equals("VENDEDOR-TALLER-CONTRATO")){
-      jMenu1.setEnabled(false);
-     jMenu2.setEnabled(true);
      jMenu9.setEnabled(false);
-     jMenu12.setEnabled(true);
-     jMenu11.setEnabled(false);
-     jMenu14.setEnabled(false);
-     jMenu1.setEnabled(false);
-     jMenu15.setEnabled(false);
-     jMenuItem21.setEnabled(false);
-     jMenuItem23.setEnabled(false);
-     jMenuItem31.setEnabled(false);
-     jMenuItem24.setEnabled(true);
-     jMenuItem25.setEnabled(false);
-     
-     jMenu1.setEnabled(true);
-     jMenu3.setEnabled(false);
-     jMenu4.setEnabled(false);
-     jMenu5.setEnabled(false);
-     jMenu16.setEnabled(false);
-     jMenu7.setEnabled(false);
-     jMenu8.setEnabled(false);
-     jMenu6.setEnabled(false);
-     jMenu17.setEnabled(false);
-     jMenu18.setEnabled(true);
-     jMenuItem32.setEnabled(false);
-     jMenuItem33.setEnabled(false);
-     jMenuItem48.setEnabled(false);
-     jMenu19.setEnabled(true); 
-     jMenu23.setEnabled(false);
-     jMenu25.setEnabled(true); 
      jMenu29.setEnabled(false);
      }
-       if(JLogin.usu.getTipo().equals("TALLER")){
-     jMenu1.setEnabled(false);
-     jMenu2.setEnabled(false);
-     jMenu9.setEnabled(false);
-     jMenu12.setEnabled(true);
-     jMenu11.setEnabled(false);
-     jMenu14.setEnabled(false);
-     jMenu1.setEnabled(false);
-     jMenu15.setEnabled(false);
-     jMenu19.setEnabled(false);
-     jMenu23.setEnabled(false);
-     jMenu25.setEnabled(true);
-     jMenuItem21.setEnabled(false);
-     jMenuItem23.setEnabled(false);
-     jMenuItem31.setEnabled(false);
-     jMenuItem24.setEnabled(true);
-     jMenuItem25.setEnabled(false);
-     jMenu29.setEnabled(false);
-     }
-     if(JLogin.usu.getTipo().equals("CONTRATO")){
-     jMenu2.setEnabled(false);
-     jMenu9.setEnabled(false);
-     jMenu12.setEnabled(false);
-     jMenu11.setEnabled(false);
-     jMenu14.setEnabled(false);
-     jMenu1.setEnabled(false);
-     jMenu15.setEnabled(false);
-     jMenu23.setEnabled(false);
-     jMenu25.setEnabled(false);
-     jMenuItem21.setEnabled(false);
-     jMenuItem23.setEnabled(false);
-     jMenuItem31.setEnabled(false);
-     jMenuItem24.setEnabled(false);
-     jMenuItem25.setEnabled(false);    
-         
-     jMenu1.setEnabled(true);
-     jMenu3.setEnabled(false);
-     jMenu4.setEnabled(false);
-     jMenu5.setEnabled(false);
-     jMenu16.setEnabled(false);
-     jMenu7.setEnabled(false);
-     jMenu8.setEnabled(false);
-     jMenu6.setEnabled(false);
-     jMenu17.setEnabled(false);
-     jMenu18.setEnabled(true);
-     jMenuItem32.setEnabled(false);
-     jMenuItem33.setEnabled(false);
-     jMenuItem48.setEnabled(false);
-     jMenu19.setEnabled(true); 
-     jMenu29.setEnabled(false);
-     }
-      if(JLogin.usu.getTipo().equals("TALLER-CONTRATO")){
-     jMenu2.setEnabled(false);
-     jMenu9.setEnabled(false);
-     jMenu12.setEnabled(false);
-     jMenu11.setEnabled(false);
-     jMenu14.setEnabled(false);
-     jMenu1.setEnabled(false);
-     jMenu15.setEnabled(false);
-     jMenuItem21.setEnabled(false);
-     jMenuItem23.setEnabled(false);
-     jMenuItem31.setEnabled(false);
-     jMenuItem24.setEnabled(false);
-     jMenuItem25.setEnabled(true);    
-         
-     jMenu1.setEnabled(true);
-     jMenu3.setEnabled(false);
-     jMenu4.setEnabled(false);
-     jMenu5.setEnabled(false);
-     jMenu16.setEnabled(false);
-     jMenu7.setEnabled(false);
-     jMenu8.setEnabled(false);
-     jMenu6.setEnabled(false);
-     jMenu17.setEnabled(false);
-     jMenu18.setEnabled(true);
-     jMenu23.setEnabled(false);
-     jMenuItem32.setEnabled(false);
-     jMenuItem33.setEnabled(false);
-     jMenuItem48.setEnabled(false);
-     jMenu19.setEnabled(true); 
-     jMenu29.setEnabled(false);
-     }
+//     if(JLogin.usu.getTipo().equals("VENDEDOR-TALLER")){
+//     jMenu1.setEnabled(false);
+//     jMenu2.setEnabled(true);
+//     jMenu9.setEnabled(false);
+//     jMenu12.setEnabled(true);
+//     jMenu11.setEnabled(false);
+//     jMenu14.setEnabled(false);
+//     jMenu1.setEnabled(false);
+//     jMenu15.setEnabled(false);
+//     jMenu19.setEnabled(false);
+//     jMenu23.setEnabled(false);
+//     jMenu25.setEnabled(true);
+//     jMenuItem21.setEnabled(false);
+//     jMenuItem23.setEnabled(false);
+//     jMenuItem31.setEnabled(false);
+//     jMenuItem24.setEnabled(true);
+//     jMenuItem25.setEnabled(true);
+//     jMenu29.setEnabled(false);
+//     } 
+//     if(JLogin.usu.getTipo().equals("VENDEDOR-CONTRATO")){
+//     jMenu1.setEnabled(false);
+//     jMenu2.setEnabled(true);
+//     jMenu9.setEnabled(false);
+//     jMenu12.setEnabled(true);
+//     jMenu11.setEnabled(false);
+//     jMenu14.setEnabled(false);
+//     jMenu1.setEnabled(false);
+//     jMenu15.setEnabled(false);
+//     jMenuItem21.setEnabled(false);
+//     jMenuItem23.setEnabled(false);
+//     jMenuItem31.setEnabled(false);
+//     jMenuItem24.setEnabled(true);
+//     jMenuItem25.setEnabled(false);
+//     
+//     jMenu1.setEnabled(true);
+//     jMenu3.setEnabled(false);
+//     jMenu4.setEnabled(false);
+//     jMenu5.setEnabled(false);
+//     jMenu16.setEnabled(false);
+//     jMenu7.setEnabled(false);
+//     jMenu8.setEnabled(false);
+//     jMenu6.setEnabled(false);
+//     jMenu17.setEnabled(false);
+//     jMenu18.setEnabled(true);
+//     jMenuItem32.setEnabled(false);
+//     jMenuItem33.setEnabled(false);
+//     jMenuItem48.setEnabled(false);
+//     jMenu19.setEnabled(true); 
+//     jMenu23.setEnabled(false);
+//     jMenu25.setEnabled(false);
+//     jMenu29.setEnabled(false);
+//     }
+//     if(JLogin.usu.getTipo().equals("VENDEDOR-TALLER-CONTRATO")){
+//      jMenu1.setEnabled(false);
+//     jMenu2.setEnabled(true);
+//     jMenu9.setEnabled(false);
+//     jMenu12.setEnabled(true);
+//     jMenu11.setEnabled(false);
+//     jMenu14.setEnabled(false);
+//     jMenu1.setEnabled(false);
+//     jMenu15.setEnabled(false);
+//     jMenuItem21.setEnabled(false);
+//     jMenuItem23.setEnabled(false);
+//     jMenuItem31.setEnabled(false);
+//     jMenuItem24.setEnabled(true);
+//     jMenuItem25.setEnabled(false);
+//     
+//     jMenu1.setEnabled(true);
+//     jMenu3.setEnabled(false);
+//     jMenu4.setEnabled(false);
+//     jMenu5.setEnabled(false);
+//     jMenu16.setEnabled(false);
+//     jMenu7.setEnabled(false);
+//     jMenu8.setEnabled(false);
+//     jMenu6.setEnabled(false);
+//     jMenu17.setEnabled(false);
+//     jMenu18.setEnabled(true);
+//     jMenuItem32.setEnabled(false);
+//     jMenuItem33.setEnabled(false);
+//     jMenuItem48.setEnabled(false);
+//     jMenu19.setEnabled(true); 
+//     jMenu23.setEnabled(false);
+//     jMenu25.setEnabled(true); 
+//     jMenu29.setEnabled(false);
+//     }
+//       if(JLogin.usu.getTipo().equals("TALLER")){
+//     jMenu1.setEnabled(false);
+//     jMenu2.setEnabled(false);
+//     jMenu9.setEnabled(false);
+//     jMenu12.setEnabled(true);
+//     jMenu11.setEnabled(false);
+//     jMenu14.setEnabled(false);
+//     jMenu1.setEnabled(false);
+//     jMenu15.setEnabled(false);
+//     jMenu19.setEnabled(false);
+//     jMenu23.setEnabled(false);
+//     jMenu25.setEnabled(true);
+//     jMenuItem21.setEnabled(false);
+//     jMenuItem23.setEnabled(false);
+//     jMenuItem31.setEnabled(false);
+//     jMenuItem24.setEnabled(true);
+//     jMenuItem25.setEnabled(false);
+//     jMenu29.setEnabled(false);
+//     }
+//     if(JLogin.usu.getTipo().equals("CONTRATO")){
+//     jMenu2.setEnabled(false);
+//     jMenu9.setEnabled(false);
+//     jMenu12.setEnabled(false);
+//     jMenu11.setEnabled(false);
+//     jMenu14.setEnabled(false);
+//     jMenu1.setEnabled(false);
+//     jMenu15.setEnabled(false);
+//     jMenu23.setEnabled(false);
+//     jMenu25.setEnabled(false);
+//     jMenuItem21.setEnabled(false);
+//     jMenuItem23.setEnabled(false);
+//     jMenuItem31.setEnabled(false);
+//     jMenuItem24.setEnabled(false);
+//     jMenuItem25.setEnabled(false);    
+//         
+//     jMenu1.setEnabled(true);
+//     jMenu3.setEnabled(false);
+//     jMenu4.setEnabled(false);
+//     jMenu5.setEnabled(false);
+//     jMenu16.setEnabled(false);
+//     jMenu7.setEnabled(false);
+//     jMenu8.setEnabled(false);
+//     jMenu6.setEnabled(false);
+//     jMenu17.setEnabled(false);
+//     jMenu18.setEnabled(true);
+//     jMenuItem32.setEnabled(false);
+//     jMenuItem33.setEnabled(false);
+//     jMenuItem48.setEnabled(false);
+//     jMenu19.setEnabled(true); 
+//     jMenu29.setEnabled(false);
+//     }
+//      if(JLogin.usu.getTipo().equals("TALLER-CONTRATO")){
+//     jMenu2.setEnabled(false);
+//     jMenu9.setEnabled(false);
+//     jMenu12.setEnabled(false);
+//     jMenu11.setEnabled(false);
+//     jMenu14.setEnabled(false);
+//     jMenu1.setEnabled(false);
+//     jMenu15.setEnabled(false);
+//     jMenuItem21.setEnabled(false);
+//     jMenuItem23.setEnabled(false);
+//     jMenuItem31.setEnabled(false);
+//     jMenuItem24.setEnabled(false);
+//     jMenuItem25.setEnabled(true);    
+//         
+//     jMenu1.setEnabled(true);
+//     jMenu3.setEnabled(false);
+//     jMenu4.setEnabled(false);
+//     jMenu5.setEnabled(false);
+//     jMenu16.setEnabled(false);
+//     jMenu7.setEnabled(false);
+//     jMenu8.setEnabled(false);
+//     jMenu6.setEnabled(false);
+//     jMenu17.setEnabled(false);
+//     jMenu18.setEnabled(true);
+//     jMenu23.setEnabled(false);
+//     jMenuItem32.setEnabled(false);
+//     jMenuItem33.setEnabled(false);
+//     jMenuItem48.setEnabled(false);
+//     jMenu19.setEnabled(true); 
+//     jMenu29.setEnabled(false);
+//     }
     }
 
     private void ChequearAlmacen() {
@@ -1586,7 +1725,7 @@ public class Menu extends javax.swing.JFrame {
         int cont=0;
         for(int i=0; i<listaproductos.size(); i++ ){
         float cantidad=Float.parseFloat(listaproductos.get(i).getCantidad());
-        int alerta=Integer.parseInt(listaproductos.get(i).getAlerta());
+        float alerta=Float.parseFloat(listaproductos.get(i).getAlerta());
         if(cantidad<=alerta){
         cont++;
         }
@@ -1614,4 +1753,16 @@ public class Menu extends javax.swing.JFrame {
        jMenuItem31.setVisible(false);
        jMenuItem27.setVisible(false);
       }
+   public void DeshabilitarPizzeria(){
+      jMenu8.setVisible(false);
+      jMenu18.setVisible(false);
+      jMenu19.setVisible(false);
+      jMenu9.setVisible(false);
+      jMenu23.setVisible(false);
+      jMenu25.setVisible(false);
+      jMenuItem48.setVisible(false);
+      jMenuItem33.setVisible(false);
+      jMenuItem15.setVisible(false);
+    
+    }
 }

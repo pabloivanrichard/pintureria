@@ -39,13 +39,13 @@ import net.sf.jasperreports.engine.JRException;
  *
  * @author laura
  */
-public class Caja extends javax.swing.JFrame {
+public class JfCaja extends javax.swing.JFrame {
 static Venta venta;
 static Compras compra;
     /**
      * Creates new form Caja
      */
-    public Caja() {
+    public JfCaja() {
         initComponents();
          setLocationRelativeTo(null);
         inicializarComponentes();
@@ -602,20 +602,20 @@ static Compras compra;
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Caja.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JfCaja.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Caja.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JfCaja.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Caja.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JfCaja.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Caja.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JfCaja.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Caja().setVisible(true);
+                new JfCaja().setVisible(true);
             }
         });
     }
@@ -1092,11 +1092,11 @@ static Compras compra;
                   Date fec1=(Date)fecha1.getTime();
                   reporte.ejecutarReporteCajaAll(fec, fec1);
               } catch (InstantiationException ex) {
-                  Logger.getLogger(Caja.class.getName()).log(Level.SEVERE, null, ex);
+                  Logger.getLogger(JfCaja.class.getName()).log(Level.SEVERE, null, ex);
               } catch (IllegalAccessException ex) {
-                  Logger.getLogger(Caja.class.getName()).log(Level.SEVERE, null, ex);
+                  Logger.getLogger(JfCaja.class.getName()).log(Level.SEVERE, null, ex);
               } catch (JRException ex) {
-                  Logger.getLogger(Caja.class.getName()).log(Level.SEVERE, null, ex);
+                  Logger.getLogger(JfCaja.class.getName()).log(Level.SEVERE, null, ex);
               }
           }
           else{
@@ -1116,11 +1116,11 @@ static Compras compra;
                   Date fec1=(Date)fecha1.getTime();
                   reporte.ejecutarReporteCaja(fec, fec1, jComboBox1.getSelectedItem().toString());
               } catch (InstantiationException ex) {
-                  Logger.getLogger(Caja.class.getName()).log(Level.SEVERE, null, ex);
+                  Logger.getLogger(JfCaja.class.getName()).log(Level.SEVERE, null, ex);
               } catch (IllegalAccessException ex) {
-                  Logger.getLogger(Caja.class.getName()).log(Level.SEVERE, null, ex);
+                  Logger.getLogger(JfCaja.class.getName()).log(Level.SEVERE, null, ex);
               } catch (JRException ex) {
-                  Logger.getLogger(Caja.class.getName()).log(Level.SEVERE, null, ex);
+                  Logger.getLogger(JfCaja.class.getName()).log(Level.SEVERE, null, ex);
               }
           }
     }
